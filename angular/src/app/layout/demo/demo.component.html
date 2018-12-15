@@ -1,0 +1,89 @@
+<div [@routerTransition]>
+    <app-page-header [heading]="'Demo'" [icon]="'fa-pie-chart'"></app-page-header>
+
+    <div class="row">
+
+        <div class="col-lg-12">
+            <div class="alert alert-info" style="font-size:12px">
+                <p>This page demonstrates audit functionality.</p>
+                <p style="margin-bottom:0">Using pgAdmin you can track changes made by the app. We are
+                    dealing with <b>Teams</b> table.</p>
+                <br>
+                <p style="margin-bottom:0">Create record and have a look at <b>CreationTime</b>, <b>CreatorID</b> and
+                    <b>TenantID</b>.</p>
+                <p style="margin-bottom:0">Modify record and have a look at <b>ModificationTime</b> and <b>ModifierID</b>.</p>
+                <p style="margin-bottom:0">Delete record and have a look at <b>DeletionTime</b> and <b>DeleterID</b>.</p>
+                <br>
+                <p style="margin-bottom:0">Try switching between tenants ('restaura' and 'galeriasenda') and see that
+                    the
+                    app only pulls records which belong to current tenant.</p>
+                <br>
+                <p style="margin-bottom:0">Note that we've applied Dynamic Filter to avoid pulling soft-deleted
+                    records.</p>
+            </div>
+        </div>
+
+        <div class="col-lg-6 col-md-12">
+
+            <div class="card mb-3">
+                <div class="card-header">
+                    Teams
+                    <button class="btn-xs pull-right" (click)="open(content)">
+                        <i class="fa fa-plus-square"></i>
+                    </button>
+                    <ng-template #content let-c="close" let-d="dismiss">
+                        <div class="modal-header">
+                            <h4 class="modal-title">{{input.id > 0 ? 'Update Team' : 'Create Team'}}</h4>
+                            <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+
+                            <fieldset class="form-group">
+                                <input class="form-control" [(ngModel)]="input.name" placeholder="Name..." required>
+                            </fieldset>
+
+                            <fieldset class="form-group">
+                                <textarea class="form-control" [(ngModel)]="input.description" rows="3" placeholder="Description..."
+                                    required></textarea>
+                            </fieldset>
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" (click)="save()">{{input.id > 0 ? 'Update' :
+                                'Create'}}</button>
+                            <button type="button" class="btn btn-secondary" (click)="c('Close click')">Close</button>
+                        </div>
+                    </ng-template>
+                </div>
+                <div class="card-body table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th>Description</th>
+                                <th></th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let team of teams">
+                                <th scope="row">{{team.id}}</th>
+                                <td>{{team.name}}</td>
+                                <td>{{team.description}}</td>
+                                <td>
+                                    <button class="btn btn-secondary" (click)="edit(team, content)">Edit</button>
+                                </td>
+                                <td>
+                                    <button style="margin-left: 10px" class="btn btn-secondary" (click)="delete(team)">Delete</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
