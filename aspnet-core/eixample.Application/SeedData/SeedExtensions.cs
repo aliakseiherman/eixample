@@ -1,4 +1,8 @@
-﻿using Microsoft.AspNetCore.Hosting;
+﻿using eixample.Entities;
+using eixample.EntityFrameworkCore.EntityFrameworkCore;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace eixample.Application.SeedData
@@ -9,9 +13,14 @@ namespace eixample.Application.SeedData
         {
             using (var scope = host.Services.CreateScope())
             {
-                new TenantsCreator(scope).Create();
-                new UserCreator(scope).Create();
-                new MembershipCreator(scope).Create();
+                var dbContext = scope.ServiceProvider.GetService<AppDbContext>();
+                var tenantService = scope.ServiceProvider.GetService<ITenantService>();
+                var userManager = scope.ServiceProvider.GetService<UserManager<ApplicationUser>>();
+                var roleStore = new RoleStore<IdentityRole>(dbContext);
+
+                new TenantsCreator(dbContext).Create();
+                new UserCreator(dbContext, tenantService, userManager).Create();
+                new MembershipCreator(dbContext, userManager).Create();
             }
 
             return host;

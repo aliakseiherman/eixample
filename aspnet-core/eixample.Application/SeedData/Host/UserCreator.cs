@@ -2,10 +2,7 @@
 using eixample.Entities;
 using eixample.EntityFrameworkCore.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace eixample.Application.SeedData
 {
@@ -14,22 +11,24 @@ namespace eixample.Application.SeedData
         private AppDbContext _context;
         private ITenantService _tenantService;
         private UserManager<ApplicationUser> _userManager;
-        private RoleStore<IdentityRole> _roleStore;
 
-        public UserCreator(IServiceScope scope)
+        public UserCreator(
+            AppDbContext context,
+            ITenantService tenantService,
+            UserManager<ApplicationUser> userManager
+            )
         {
-            _context = scope.ServiceProvider.GetService<AppDbContext>();
-            _tenantService = scope.ServiceProvider.GetService<ITenantService>();
-            _userManager = scope.ServiceProvider.GetService<UserManager<ApplicationUser>>();
-            _roleStore = new RoleStore<IdentityRole>(_context);
+            _context = context;
+            _tenantService = tenantService;
+            _userManager = userManager;
         }
 
         public void Create()
         {
-            Task.Run(async () => await CreateUsers()).ConfigureAwait(false).GetAwaiter().GetResult();
+            CreateUsers();
         }
 
-        private async Task CreateUsers()
+        private void CreateUsers()
         {
             ApplicationUser hostAdminUser = _context.Users.FirstOrDefault(x => x.UserName.Equals(SetupConsts.Users.AdminJoe.UserName));
 
@@ -45,7 +44,7 @@ namespace eixample.Application.SeedData
                     PasswordHash = new PasswordHasher<ApplicationUser>().HashPassword(hostAdminUser, SetupConsts.Users.Passwords.Default)
                 };
 
-                await _userManager.CreateAsync(hostAdminUser);
+                _userManager.CreateAsync(hostAdminUser).ConfigureAwait(false).GetAwaiter().GetResult();
             }
 
             ApplicationUser secondaryUser = _context.Users.FirstOrDefault(x => x.UserName.Equals(SetupConsts.Users.JohnRoe.UserName));
@@ -62,7 +61,7 @@ namespace eixample.Application.SeedData
                     PasswordHash = new PasswordHasher<ApplicationUser>().HashPassword(secondaryUser, SetupConsts.Users.Passwords.Default)
                 };
 
-                await _userManager.CreateAsync(secondaryUser);
+                _userManager.CreateAsync(secondaryUser).ConfigureAwait(false).GetAwaiter().GetResult();
             }
         }
     }

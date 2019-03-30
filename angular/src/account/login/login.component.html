@@ -6,23 +6,28 @@
 
     <form>
 
+        <p>use <b>admin 123qwe</b> as default credentials</p>
+
         <div class="form-group">
-            <input [ngModelOptions]="{standalone: true}" placeholder="Username" class="form-control" [(ngModel)]="loginService.loginModel.userName" name="username" required>
+            <input [ngModelOptions]="{standalone: true}" placeholder="Username" class="form-control"
+                [(ngModel)]="loginService.loginModel.userName" name="username" required>
         </div>
 
         <div class="form-group">
-            <input [ngModelOptions]="{standalone: true}" placeholder="Password" class="form-control" [(ngModel)]="loginService.loginModel.password" type="password" name="password" required>
+            <input [ngModelOptions]="{standalone: true}" placeholder="Password" class="form-control"
+                [(ngModel)]="loginService.loginModel.password" type="password" name="password" required>
         </div>
 
         <div class="form-check">
-            <input [ngModelOptions]="{standalone: true}" type="checkbox" class="form-check-input" id="rememberMe" [(ngModel)]="loginService.loginModel.rememberMe">
+            <input [ngModelOptions]="{standalone: true}" type="checkbox" class="form-check-input" id="rememberMe"
+                [(ngModel)]="loginService.loginModel.rememberMe">
             <label class="form-check-label" for="rememberMe">Remember me</label>
         </div>
 
         <br>
 
         <button class="btn btn-primary" (click)="login()">Login</button>
-        
+
         <a class="btn btn-secondary" [routerLink]="['../register']">Register</a>
 
     </form>

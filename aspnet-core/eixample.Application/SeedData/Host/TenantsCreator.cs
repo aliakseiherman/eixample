@@ -1,7 +1,6 @@
 ﻿using eixample.Consts;
 using eixample.Entities;
 using eixample.EntityFrameworkCore.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
 using System.Linq;
 
 namespace eixample.Application.SeedData
@@ -10,9 +9,9 @@ namespace eixample.Application.SeedData
     {
         private readonly AppDbContext _context;
 
-        public TenantsCreator(IServiceScope scope)
+        public TenantsCreator(AppDbContext context)
         {
-            _context = scope.ServiceProvider.GetService<AppDbContext>();
+            _context = context;
         }
 
         public void Create()

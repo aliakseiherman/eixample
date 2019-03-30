@@ -2,9 +2,7 @@
 using eixample.Entities;
 using eixample.EntityFrameworkCore.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.Extensions.DependencyInjection;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace eixample.Application.SeedData
 {
@@ -13,22 +11,26 @@ namespace eixample.Application.SeedData
         private readonly AppDbContext _context;
         private UserManager<ApplicationUser> _userManager;
 
-        public MembershipCreator(IServiceScope scope)
+        public MembershipCreator(
+            AppDbContext context,
+            UserManager<ApplicationUser> userManager
+            )
         {
-            _context = scope.ServiceProvider.GetService<AppDbContext>();
-            _userManager = scope.ServiceProvider.GetService<UserManager<ApplicationUser>>();
+            _context = context;
+            _userManager = userManager;
         }
 
         public void Create()
         {
-            Task.Run(async () => await CreateMembership()).ConfigureAwait(false).GetAwaiter().GetResult();
+            CreateMembership();
         }
 
-        private async Task CreateMembership()
+        private void CreateMembership()
         {
-            var hostAdminUser = await _userManager.FindByNameAsync(SetupConsts.Users.AdminJoe.UserName);
-
+            var users = _context.Users.ToList();
             var tenants = _context.Tenants.ToList();
+
+            var hostAdminUser = _userManager.FindByNameAsync(SetupConsts.Users.AdminJoe.UserName).ConfigureAwait(false).GetAwaiter().GetResult();
 
             foreach (var tenant in tenants)
             {
@@ -37,19 +39,20 @@ namespace eixample.Application.SeedData
                     _context.Memberships.Add(new Membership() { TenantId = tenant.Id, UserId = hostAdminUser.Id });
                 }
 
-                await _context.SaveChangesAsync();
+                _context.SaveChanges();
             }
 
             // restricting John Roe from logging in to tenants other than 'galeriasenda'
-            var johnRoe = await _userManager.FindByNameAsync(SetupConsts.Users.JohnRoe.UserName);
+            var johnRoe = _userManager.FindByNameAsync(SetupConsts.Users.JohnRoe.UserName).ConfigureAwait(false).GetAwaiter().GetResult();
+
             var firstTenant = _context.Tenants.Single(x => x.HostName == SetupConsts.Tenants.GaleriaSenda.HostName);
-            
+
             if (!_context.Memberships.Any(x => x.TenantId == firstTenant.Id && x.UserId == johnRoe.Id))
             {
                 _context.Memberships.Add(new Membership() { TenantId = firstTenant.Id, UserId = johnRoe.Id });
             }
 
-            await _context.SaveChangesAsync();
+            _context.SaveChanges();
         }
     }
 }
