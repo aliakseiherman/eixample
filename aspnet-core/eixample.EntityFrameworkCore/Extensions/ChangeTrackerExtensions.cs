@@ -12,7 +12,7 @@ namespace eixample.Extensions
         {
             foreach (var item in changeTracker.Entries<IHasCreationTime>().Where(e => e.State == EntityState.Added))
             {
-                item.Entity.CreationTime = DateTime.Now;
+                item.Entity.CreationTime = DateTime.UtcNow;
             }
 
             foreach (var item in changeTracker.Entries<IHasCreatorId>().Where(e => e.State == EntityState.Added))
@@ -33,7 +33,7 @@ namespace eixample.Extensions
         {
             foreach (var item in changeTracker.Entries<IHasModificationTime>().Where(e => e.State == EntityState.Modified))
             {
-                item.Entity.ModificationTime = DateTime.Now;
+                item.Entity.ModificationTime = DateTime.UtcNow;
             }
 
             foreach (var item in changeTracker.Entries<IHasModifierId>().Where(e => e.State == EntityState.Modified))
@@ -46,7 +46,7 @@ namespace eixample.Extensions
         {
             foreach (var item in changeTracker.Entries<IHasDeletionTime>().Where(e => e.State == EntityState.Deleted))
             {
-                item.Entity.DeletionTime = DateTime.Now;
+                item.Entity.DeletionTime = DateTime.UtcNow;
             }
 
             foreach (var item in changeTracker.Entries<IHasDeleterId>().Where(e => e.State == EntityState.Deleted))

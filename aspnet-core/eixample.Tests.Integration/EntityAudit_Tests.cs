@@ -32,7 +32,7 @@ namespace eixample.Tests.Integration
             DbContext.Teams.Remove(team);
             DbContext.SaveChanges();
 
-            var moment = DateTime.Now;
+            var moment = DateTime.UtcNow;
 
             // testing creation audit
             Assert.Equal(team.TenantId, tenant.Id);
