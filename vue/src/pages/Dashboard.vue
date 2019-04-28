@@ -212,6 +212,8 @@ import {
   OrderedTable
 } from "@/components";
 
+import EventBus from '../bus/event-bus';
+
 export default {
   components: {
     StatsCard,
@@ -219,6 +221,11 @@ export default {
     NavTabsCard,
     NavTabsTable,
     OrderedTable
+  },
+  mounted () {
+    EventBus.$on('on-edit-profile-created', function (payLoad) {
+      console.log(payLoad);
+    });
   },
   data() {
     return {

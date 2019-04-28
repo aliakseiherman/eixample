@@ -3,7 +3,10 @@
     <md-card>
       <md-card-header :data-background-color="dataBackgroundColor">
         <h4 class="title">Edit Profile</h4>
-        <p class="category">Complete your profile <b>(no functionality at present)</b></p>
+        <p class="category">
+          Complete your profile
+          <b>(no functionality at present)</b>
+        </p>
       </md-card-header>
 
       <md-card-content>
@@ -77,7 +80,8 @@
   </form>
 </template>
 <script>
-const axios = require("axios");
+import { timeout } from "q";
+import EventBus from '../../bus/event-bus';
 
 export default {
   name: "edit-profile-form",
@@ -103,24 +107,17 @@ export default {
     };
   },
   created() {
-    var self = this;
-    axios
-      .get("http://localhost:8080/api/Session/GetCurrentUserData", {
-        headers: {
-          Authorization: "Bearer " + localStorage.getItem("token")
-        }
-      })
-      .then(function(result) {
-        let username = result.data.user ? result.data.user.userName : null;
-        let firstname = result.data.user ? result.data.user.firstName : null;
-        let lastname = result.data.user ? result.data.user.lastName : null;
-        let email = result.data.user ? result.data.user.email : null;
+    let username = this.$store.getters.user ? this.$store.getters.user.userName : null;
+    let firstname = this.$store.getters.user ? this.$store.getters.user.firstName : null;
+    let lastname = this.$store.getters.user ? this.$store.getters.user.lastName : null;
+    let email = this.$store.getters.user ? this.$store.getters.user.email : null;
 
-        self.username = username;
-        self.firstname = firstname;
-        self.lastname = lastname;
-        self.emailadress = email;
-      });
+    this.username = username;
+    this.firstname = firstname;
+    this.lastname = lastname;
+    this.emailadress = email;
+
+    EventBus.$emit('on-edit-profile-created', 'lorem ipsum dolot sit amet...'); // demo
   }
 };
 </script>

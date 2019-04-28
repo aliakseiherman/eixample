@@ -8,11 +8,10 @@ import Icons from "@/pages/Icons.vue";
 import Maps from "@/pages/Maps.vue";
 import Notifications from "@/pages/Notifications.vue";
 import Login from "@/pages/Login.vue";
-
-const axios = require('axios');
+import { store } from '../store/store'
 
 function guard(to, from, next) {
-  if (localStorage.getItem('token')) {
+  if (store.getters.user) {
     next();
   } else {
     next('/login'); // go to '/login';

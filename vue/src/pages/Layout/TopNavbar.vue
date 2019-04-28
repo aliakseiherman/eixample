@@ -48,9 +48,16 @@
               </drop-down>
             </md-list-item>
 
-            <md-list-item href="#/user">
-              <i class="material-icons">person</i>
-              <p class="hidden-lg hidden-md">Profile</p>
+            <md-list-item href="#">
+              <drop-down>
+                <a slot="title" class="dropdown-toggle" data-toggle="dropdown">
+                  <i class="material-icons">person</i>
+                </a>
+                <ul class="dropdown-menu dropdown-menu-right">
+                  <li><a href="#/user">Profile</a></li>
+                  <li><a href="#" @click="logOut">Log Out</a></li>
+                </ul>
+              </drop-down>
             </md-list-item>
           </md-list>
         </div>
@@ -79,6 +86,10 @@ export default {
   methods: {
     toggleSidebar() {
       this.$sidebar.displaySidebar(!this.$sidebar.showSidebar);
+    },
+    logOut() {
+      localStorage.removeItem("token");
+      window.location = "/";
     }
   }
 };

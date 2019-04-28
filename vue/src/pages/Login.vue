@@ -27,7 +27,7 @@
           </div>
           <div class="md-layout-item md-size-100 text-left">
             <md-button class="md-raised md-success" v-on:click="login">Login</md-button>
-            <md-button class="md-raised" v-on:click="login">Register</md-button>
+            <md-button class="md-raised">Register</md-button>
           </div>
         </div>
       </md-card-content>
@@ -36,13 +36,14 @@
 </template>
 <style lang="scss"></style>
 <script>
-const axios = require("axios");
 
 export default {
   components: {},
   methods: {
     login() {
-      axios
+      var self = this;
+      
+      this.$http
         .post("http://localhost:8080/api/Auth/Authenticate", {
           username: this.username,
           password: this.password,
