@@ -15,7 +15,7 @@ namespace eixample.Extensions
                 item.Entity.CreationTime = DateTime.UtcNow;
             }
 
-            foreach (var item in changeTracker.Entries<IHasCreatorId>().Where(e => e.State == EntityState.Added))
+            foreach (var item in changeTracker.Entries<IHasCreator>().Where(e => e.State == EntityState.Added))
             {
                 item.Entity.CreatorId = userId;
             }
@@ -36,7 +36,7 @@ namespace eixample.Extensions
                 item.Entity.ModificationTime = DateTime.UtcNow;
             }
 
-            foreach (var item in changeTracker.Entries<IHasModifierId>().Where(e => e.State == EntityState.Modified))
+            foreach (var item in changeTracker.Entries<IHasModifier>().Where(e => e.State == EntityState.Modified))
             {
                 item.Entity.ModifierId = userId;
             }
@@ -49,7 +49,7 @@ namespace eixample.Extensions
                 item.Entity.DeletionTime = DateTime.UtcNow;
             }
 
-            foreach (var item in changeTracker.Entries<IHasDeleterId>().Where(e => e.State == EntityState.Deleted))
+            foreach (var item in changeTracker.Entries<IHasDeleter>().Where(e => e.State == EntityState.Deleted))
             {
                 item.Entity.DeleterId = userId;
             }

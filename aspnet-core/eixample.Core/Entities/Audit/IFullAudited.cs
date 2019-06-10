@@ -1,6 +1,6 @@
 ﻿namespace eixample.Entities
 {
-    public interface IFullAudited : IHasCreationTime, IHasCreatorId, IHasModificationTime, IHasModifierId, IHasDeletionTime, IHasDeleterId, ISoftDelete, IHasTenant
+    public interface IFullAudited : IHasCreationTime, IHasCreator, IHasModificationTime, IHasModifier, IHasDeletionTime, IHasDeleter, ISoftDelete, IHasTenant
     {
     }
 }

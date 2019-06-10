@@ -1,6 +1,6 @@
 ﻿namespace eixample.Entities
 {
-    public interface IHasDeleterId
+    public interface IHasDeleter
     {
         string DeleterId { get; set; }
     }
