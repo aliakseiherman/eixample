@@ -3,11 +3,10 @@ import { routerTransition } from '../../router.animations';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ComponentBase } from '@shared/component-base';
 import { NgbModal, ModalDismissReasons, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { TeamServiceProxy, TeamDto } from '@shared/service-proxies/service-proxies';
+import { PersonServiceProxy, PersonDto } from '@shared/service-proxies/service-proxies';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
-  selector: 'app-teams',
   templateUrl: './demo.component.html',
   styleUrls: ['./demo.component.scss'],
   animations: [routerTransition()]
@@ -16,14 +15,14 @@ export class DemoComponent extends ComponentBase implements OnInit {
 
   closeResult: string;
 
-  private input: TeamDto;
+  private input: PersonDto;
 
-  private teams: TeamDto[];
+  private persons: PersonDto[];
 
   private modalReference: NgbModalRef;
 
   constructor(
-    private teamsService: TeamServiceProxy,
+    private personService: PersonServiceProxy,
     injector: Injector,
     sanitizer: DomSanitizer,
     private modalService: NgbModal,
@@ -33,20 +32,20 @@ export class DemoComponent extends ComponentBase implements OnInit {
   }
 
   ngOnInit() {
-    this.loadTeams();
+    this.loadPersons();
   }
 
-  loadTeams(): void {
-    this.teamsService.getAll()
+  loadPersons(): void {
+    this.personService.getAll()
       .finally(() => { })
-      .subscribe((result: TeamDto[]) => {
-        this.teams = result;
+      .subscribe((result: PersonDto[]) => {
+        this.persons = result;
       });
   }
 
   open(content) {
 
-    this.input = new TeamDto();
+    this.input = new PersonDto();
 
     this.modalReference = this.modalService.open(content);
 
@@ -57,8 +56,8 @@ export class DemoComponent extends ComponentBase implements OnInit {
     });
   }
 
-  edit(team: TeamDto, content: any) {
-    this.input = team;
+  edit(person: PersonDto, content: any) {
+    this.input = person;
     this.modalReference = this.modalService.open(content);
 
     this.modalReference.result.then((result) => {
@@ -68,13 +67,13 @@ export class DemoComponent extends ComponentBase implements OnInit {
     });
   }
 
-  delete(team: TeamDto) {
+  delete(person: PersonDto) {
 
-    this.teamsService.delete(team)
+    this.personService.delete(person)
       .finally(() => { })
       .subscribe(() => {
-        this.toastr.info(`Team '${team.name}' has been deleted.`, 'Team Deleted');
-        this.loadTeams();
+        this.toastr.info(`Person '${person.name}' has been deleted.`, 'Person Deleted');
+        this.loadPersons();
       });
   }
 
@@ -82,22 +81,22 @@ export class DemoComponent extends ComponentBase implements OnInit {
 
     if (this.input.id > 0) {
 
-      this.teamsService.update(this.input)
+      this.personService.update(this.input)
         .finally(() => { })
         .subscribe(() => {
-          this.toastr.success(`Team '${this.input.name}' has been updated.`, 'Team Updated');
+          this.toastr.success(`Person '${this.input.name}' has been updated.`, 'Person Updated');
           this.modalReference.close();
-          this.loadTeams();
+          this.loadPersons();
         });
 
     } else {
 
-      this.teamsService.add(this.input)
+      this.personService.add(this.input)
         .finally(() => { })
         .subscribe(() => {
-          this.toastr.success(`Team '${this.input.name}' has been created.`, 'Team Created');
+          this.toastr.success(`Person '${this.input.name}' has been created.`, 'Person Created');
           this.modalReference.close();
-          this.loadTeams();
+          this.loadPersons();
         });
 
     }

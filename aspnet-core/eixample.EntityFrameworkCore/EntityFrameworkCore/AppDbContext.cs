@@ -18,7 +18,7 @@ namespace eixample.EntityFrameworkCore.EntityFrameworkCore
 
         public DbSet<Membership> Memberships { get; set; }
 
-        public DbSet<Team> Teams { get; set; }
+        public DbSet<Person> Persons { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

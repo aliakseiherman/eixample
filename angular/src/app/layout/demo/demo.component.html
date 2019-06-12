@@ -7,7 +7,7 @@
             <div class="alert alert-info" style="font-size:12px">
                 <p>This page demonstrates audit functionality.</p>
                 <p style="margin-bottom:0">Using pgAdmin you can track changes made by the app. We are
-                    dealing with <b>Teams</b> table.</p>
+                    dealing with <b>Persons</b> table.</p>
                 <br>
                 <p style="margin-bottom:0">Create record and have a look at <b>CreationTime</b>, <b>CreatorID</b> and
                     <b>TenantID</b>.</p>
@@ -23,17 +23,17 @@
             </div>
         </div>
 
-        <div class="col-lg-6 col-md-12">
+        <div class="col-lg-12 col-md-12">
 
             <div class="card mb-3">
                 <div class="card-header">
-                    Teams
+                    People
                     <button class="btn-xs pull-right" (click)="open(content)">
                         <i class="fa fa-plus-square"></i>
                     </button>
                     <ng-template #content let-c="close" let-d="dismiss">
                         <div class="modal-header">
-                            <h4 class="modal-title">{{input.id > 0 ? 'Update Team' : 'Create Team'}}</h4>
+                            <h4 class="modal-title">{{input.id > 0 ? 'Update Person' : 'Add Person'}}</h4>
                             <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
                                 <span aria-hidden="true">&times;</span>
                             </button>
@@ -52,7 +52,7 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-primary" (click)="save()">{{input.id > 0 ? 'Update' :
-                                'Create'}}</button>
+                                'Add'}}</button>
                             <button type="button" class="btn btn-secondary" (click)="c('Close click')">Close</button>
                         </div>
                     </ng-template>
@@ -69,15 +69,15 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let team of teams">
-                                <th scope="row">{{team.id}}</th>
-                                <td>{{team.name}}</td>
-                                <td>{{team.description}}</td>
+                            <tr *ngFor="let person of persons">
+                                <th scope="row">{{person.id}}</th>
+                                <td>{{person.name}}</td>
+                                <td>{{person.description}}</td>
                                 <td>
-                                    <button class="btn btn-secondary" (click)="edit(team, content)">Edit</button>
+                                    <button class="btn btn-secondary" (click)="edit(person, content)">Edit</button>
                                 </td>
                                 <td>
-                                    <button style="margin-left: 10px" class="btn btn-secondary" (click)="delete(team)">Delete</button>
+                                    <button style="margin-left: 10px" class="btn btn-secondary" (click)="delete(person)">Delete</button>
                                 </td>
                             </tr>
                         </tbody>

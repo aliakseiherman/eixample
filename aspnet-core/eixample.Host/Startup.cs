@@ -106,7 +106,7 @@ namespace eixample.Host
             containerBuilder.RegisterType<AccountController>();
             containerBuilder.RegisterType<SessionController>();
             containerBuilder.RegisterType<AuthController>();
-            containerBuilder.RegisterType<TeamController>();
+            containerBuilder.RegisterType<PersonController>();
             var container = containerBuilder.Build();
             return new AutofacServiceProvider(container);
         }

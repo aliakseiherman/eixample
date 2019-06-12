@@ -18,8 +18,8 @@ namespace eixample.Tests.Integration
             // Admin Joe creates team
             DbContext.UserId = adminJoe.Id;
             DbContext.TenantId = tenant.Id;
-            var team = new Team() { Name = "Team1", Description = "random text..." };
-            DbContext.Teams.Add(team);
+            var team = new Person() { Name = "Team1", Description = "random text..." };
+            DbContext.Persons.Add(team);
             DbContext.SaveChanges();
 
             // John Roe modifies team
@@ -29,7 +29,7 @@ namespace eixample.Tests.Integration
 
             // Admin Joe deletes team
             DbContext.UserId = adminJoe.Id;
-            DbContext.Teams.Remove(team);
+            DbContext.Persons.Remove(team);
             DbContext.SaveChanges();
 
             var moment = DateTime.UtcNow;

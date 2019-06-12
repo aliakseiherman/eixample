@@ -33,7 +33,7 @@ namespace eixample.Autofac
             builder.RegisterType<UserManager<ApplicationUser>>().InstancePerLifetimeScope();
             builder.RegisterType<UserService>().As<IUserService>().InstancePerLifetimeScope();
             builder.RegisterType<MembershipService>().As<IMembershipService>().InstancePerLifetimeScope();
-            builder.RegisterType<TeamService>().As<ITeamService>().InstancePerLifetimeScope();
+            builder.RegisterType<PersonService>().As<IPersonService>().InstancePerLifetimeScope();
         }
     }
 }

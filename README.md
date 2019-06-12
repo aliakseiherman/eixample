@@ -10,7 +10,7 @@ An alternative to ASP.NET Boilerplate
 
 If you are looking for Classic .NET edition (Full .NET Framework ASP.NET WebAPI 2) - check the repository named **EixampleDotnet**.
 
-![video](https://media.giphy.com/media/fxejF70APnbvSa8oyT/giphy.gif)
+![image](https://i.imgur.com/N3o7AyR.png)
 
 ## Table of Contents  
 
@@ -306,10 +306,10 @@ WantedBy=multi-user.target
 
 ## Screenshots
 
-![image](https://i.imgur.com/lXvTQV1.png)
+![image](https://i.imgur.com/TaYj8fa.png)
 
-![image](https://i.imgur.com/6MGtPTl.png)
+![image](https://i.imgur.com/5bFQk46.png)
 
-![image](https://i.imgur.com/vH95EyC.png)
+![image](https://i.imgur.com/iCLWmp8.png)
 
-![image](https://i.imgur.com/mrs5iQA.png)
+![image](https://i.imgur.com/LBnqhEr.png)

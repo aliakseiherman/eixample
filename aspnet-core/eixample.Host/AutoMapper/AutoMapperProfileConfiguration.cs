@@ -8,7 +8,7 @@ namespace eixample.Miscellaneous
     {
         public AutoMapperProfileConfiguration()
         {
-            CreateMap<TeamDto, Team>();
+            CreateMap<PersonDto, Person>();
         }
     }
 }

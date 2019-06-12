@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { DemoRoutingModule } from './demo-routing.module';
 import { DemoComponent } from './demo.component';
 import { PageHeaderModule } from './../../shared';
-import { TeamServiceProxy } from '@shared/service-proxies/service-proxies';
+import { PersonServiceProxy } from '@shared/service-proxies/service-proxies';
 import { FormsModule } from '@angular/forms';
 
 @NgModule({
@@ -16,7 +16,7 @@ import { FormsModule } from '@angular/forms';
   ],
   declarations: [DemoComponent],
   providers: [
-    TeamServiceProxy
+    PersonServiceProxy
   ]
 })
 export class DemoModule { }
