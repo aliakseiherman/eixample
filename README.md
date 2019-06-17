@@ -3,8 +3,6 @@
 
 ## Multi-Tenant ASP.NET Core Architecture
 
-Building basis for multi-tenant SPA apps
-
 ![image](https://i.imgur.com/cqE6kAj.png)
 
 ## Features
