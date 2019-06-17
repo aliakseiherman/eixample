@@ -103,7 +103,7 @@
 
 <script>
 import { SimpleTable, OrderedTable } from "@/components";
-const axios = require("axios");
+import http from "../axios-helper/http";
 
 export default {
   components: {
@@ -145,19 +145,11 @@ export default {
     },
     add() {
       var self = this;
-      axios
-        .post(
-          "http://localhost:8080/api/Person/Add",
-          {
-            name: self.name,
-            description: self.description
-          },
-          {
-            headers: {
-              Authorization: "Bearer " + localStorage.getItem("token")
-            }
-          }
-        )
+      http
+        .post("http://localhost:8080/api/Person/Add", {
+          name: self.name,
+          description: self.description
+        })
         .then(function(response) {
           self.loadData();
           self.showDialog = false;
@@ -165,20 +157,12 @@ export default {
     },
     update() {
       var self = this;
-      axios
-        .post(
-          "http://localhost:8080/api/Person/Update",
-          {
-            id: self.id,
-            name: self.name,
-            description: self.description
-          },
-          {
-            headers: {
-              Authorization: "Bearer " + localStorage.getItem("token")
-            }
-          }
-        )
+      http
+        .post("http://localhost:8080/api/Person/Update", {
+          id: self.id,
+          name: self.name,
+          description: self.description
+        })
         .then(function(response) {
           self.loadData();
           self.showDialog = false;
@@ -186,18 +170,10 @@ export default {
     },
     deletePerson(person) {
       var self = this;
-      axios
-        .post(
-          "http://localhost:8080/api/Person/Delete",
-          {
-            id: person.id
-          },
-          {
-            headers: {
-              Authorization: "Bearer " + localStorage.getItem("token")
-            }
-          }
-        )
+      http
+        .post("http://localhost:8080/api/Person/Delete", {
+          id: person.id
+        })
         .then(function(response) {
           self.loadData();
           self.showDialog = false;
@@ -205,12 +181,8 @@ export default {
     },
     loadData() {
       var self = this;
-      axios
-        .get("http://localhost:8080/api/Person/GetAll", {
-          headers: {
-            Authorization: "Bearer " + localStorage.getItem("token")
-          }
-        })
+      http
+        .get("http://localhost:8080/api/Person/GetAll")
         .then(function(response) {
           self.persons = response.data;
         });

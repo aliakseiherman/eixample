@@ -36,14 +36,15 @@
 </template>
 <style lang="scss"></style>
 <script>
+import http from "../axios-helper/http";
 
 export default {
   components: {},
   methods: {
     login() {
       var self = this;
-      
-      this.$http
+
+      http
         .post("http://localhost:8080/api/Auth/Authenticate", {
           username: this.username,
           password: this.password,

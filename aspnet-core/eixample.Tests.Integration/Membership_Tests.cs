@@ -10,7 +10,7 @@ namespace eixample.Tests.Integration
         [Fact]
         public void Should_Reject_Users_Without_Membership_On_Current_Tenant()
         {
-            var tenant = DbContext.Tenants.Single(x => x.HostName == SetupConsts.Tenants.Restaura.HostName);
+            var tenant = DbContext.Tenants.Single(x => x.HostName == SetupConsts.Tenants.Subdomain2.HostName);
             var adminJoe = DbContext.Users.Single(x => x.UserName == SetupConsts.Users.AdminJoe.UserName);
             var johnRoe = DbContext.Users.Single(x => x.UserName == SetupConsts.Users.JohnRoe.UserName);
 
@@ -22,7 +22,7 @@ namespace eixample.Tests.Integration
             var membershipService = new MembershipService(DbContext, session);
 
             Assert.True(membershipService.IsMember(adminJoe.Id));
-            Assert.True(!membershipService.IsMember(johnRoe.Id)); // not a member of 'restaura'
+            Assert.True(!membershipService.IsMember(johnRoe.Id)); // not a member of 'subdomain2 / Company 2'
         }
     }
 }

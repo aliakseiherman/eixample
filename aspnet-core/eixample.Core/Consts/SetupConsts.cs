@@ -4,16 +4,16 @@
     {
         public static class Tenants
         {
-            public static class GaleriaSenda
+            public static class Subdomain1
             {
-                public const string Name = "Galeria Senda";
-                public const string HostName = "galeriasenda";
+                public const string Name = "Company 1";
+                public const string HostName = "subdomain1";
             }
 
-            public static class Restaura
+            public static class Subdomain2
             {
-                public const string Name = "Restaura";
-                public const string HostName = "restaura";
+                public const string Name = "Company 2";
+                public const string HostName = "subdomain2";
             }
         }
 

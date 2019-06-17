@@ -16,8 +16,8 @@ namespace eixample.Application.SeedData
 
         public void Create()
         {
-            CreateTenant(SetupConsts.Tenants.GaleriaSenda.Name, SetupConsts.Tenants.GaleriaSenda.HostName);
-            CreateTenant(SetupConsts.Tenants.Restaura.Name, SetupConsts.Tenants.Restaura.HostName);
+            CreateTenant(SetupConsts.Tenants.Subdomain1.Name, SetupConsts.Tenants.Subdomain1.HostName);
+            CreateTenant(SetupConsts.Tenants.Subdomain2.Name, SetupConsts.Tenants.Subdomain2.HostName);
         }
 
         private void CreateTenant(string name, string hostName)

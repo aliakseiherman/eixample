@@ -23,6 +23,7 @@ import VueToast from 'vue-toast-notification';
 import 'vue-toast-notification/dist/index.css';
 
 const axios = require('axios');
+import http from "./axios-helper/http";
 
 // configure router
 const router = new VueRouter({
@@ -37,14 +38,10 @@ Vue.use(VueRouter);
 Vue.use(MaterialDashboard);
 Vue.use(GlobalComponents);
 Vue.use(GlobalDirectives);
-Vue.use(Notifications); 
+Vue.use(Notifications);
 Vue.use(VueToast);
 
-axios.get('http://localhost:8080/api/Session/GetCurrentLoginDetails', {
-  headers: {
-    Authorization: "Bearer " + localStorage.getItem("token")
-  }
-})
+http.get('http://localhost:8080/api/Session/GetCurrentLoginDetails')
   .then(function (response) {
 
     store.commit("setUser", response.data.user);

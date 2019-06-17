@@ -45,7 +45,7 @@ namespace eixample.Application.SeedData
             // restricting John Roe from logging in to tenants other than 'galeriasenda'
             var johnRoe = _userManager.FindByNameAsync(SetupConsts.Users.JohnRoe.UserName).ConfigureAwait(false).GetAwaiter().GetResult();
 
-            var firstTenant = _context.Tenants.Single(x => x.HostName == SetupConsts.Tenants.GaleriaSenda.HostName);
+            var firstTenant = _context.Tenants.Single(x => x.HostName == SetupConsts.Tenants.Subdomain1.HostName);
 
             if (!_context.Memberships.Any(x => x.TenantId == firstTenant.Id && x.UserId == johnRoe.Id))
             {

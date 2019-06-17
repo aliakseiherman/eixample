@@ -11,7 +11,7 @@ namespace eixample.Tests.Integration
         [Fact]
         public void Should_Set_Audit_Properties()
         {
-            var tenant = DbContext.Tenants.Single(x => x.HostName == SetupConsts.Tenants.GaleriaSenda.HostName);
+            var tenant = DbContext.Tenants.Single(x => x.HostName == SetupConsts.Tenants.Subdomain1.HostName);
             var adminJoe = DbContext.Users.Single(x => x.UserName == SetupConsts.Users.AdminJoe.UserName);
             var johnRoe = DbContext.Users.Single(x => x.UserName == SetupConsts.Users.JohnRoe.UserName);
 
