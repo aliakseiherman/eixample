@@ -1,0 +1,118 @@
+﻿<h1>People</h1>
+
+<div class="alert alert-info" style="font-size:12px">
+    <p>This page demonstrates audit functionality.</p>
+    <p style="margin-bottom:0">
+        Using pgAdmin you can track changes made by the app. We are
+        dealing with <b>Persons</b> table.
+    </p>
+    <br>
+    <p style="margin-bottom:0">
+        Create record and have a look at <b>CreationTime</b>, <b>CreatorID</b> and
+        <b>TenantID</b>.
+    </p>
+    <p style="margin-bottom:0">Modify record and have a look at <b>ModificationTime</b> and <b>ModifierID</b>.</p>
+    <p style="margin-bottom:0">Delete record and have a look at <b>DeletionTime</b> and <b>DeleterID</b>.</p>
+    <br>
+    <p style="margin-bottom:0">
+        Try switching between tenants ('subdomain1' and 'subdomain2') and see that
+        the
+        app only pulls records which belong to current tenant.
+    </p>
+    <br>
+    <p style="margin-bottom:0">
+        Note that we've applied Dynamic Filter to avoid pulling soft-deleted
+        records.
+    </p>
+</div>
+
+<p data-bind='ifnot: people'><em>Loading...</em></p>
+
+<table class='table' data-bind='if: people'>
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Description</th>
+            <th></th>
+            <th>
+                <button type="button"
+                        class="btn btn-primary pull-right"
+                        data-toggle="modal"
+                        data-target="#editPersonModal"
+                        data-bind='click: initAddPersonState'>
+                    Add
+                </button>
+            </th>
+        </tr>
+    </thead>
+    <tbody data-bind='foreach: people'>
+        <tr>
+            <td data-bind='text: id'></td>
+            <td data-bind='text: name'></td>
+            <td>
+                <span data-bind='text: description, visible: $data.description.length > 0'></span>
+                <span data-bind='visible: $data.description.length === 0'>N/A</span>
+            </td>
+            <td>
+                <button class="btn" data-toggle="modal"
+                        data-target="#editPersonModal"
+                        data-bind='click: $parent.initEditPersonState.bind($data)'>
+                    Edit
+                </button>
+            </td>
+            <td>
+                <button class="btn pull-right"
+                        data-bind='click: $parent.deletePerson.bind($data)'>
+                    Delete
+                </button>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<div class="modal fade" id="editPersonModal" tabindex="-1" role="dialog" aria-labelledby="editPersonModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 data-bind="visible: isNew()"
+                    class="modal-title"
+                    id="editPersonModalLabel">
+                    Add Person
+                </h5>
+                <h5 data-bind="visible: !isNew()"
+                    class="modal-title"
+                    id="editPersonModalLabel">
+                    Update Person
+                </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <fieldset class="form-group">
+                    <input class="form-control" data-bind="value: person() && person().name" placeholder="Name..." required>
+                </fieldset>
+
+                <fieldset class="form-group">
+                    <textarea class="form-control" data-bind="value: person() && person().description" rows="3" placeholder="Description..." required></textarea>
+                </fieldset>
+            </div>
+            <div class="modal-footer">
+                <button type="button"
+                        data-bind="visible: isNew(), click: addPerson"
+                        class="btn btn-primary"
+                        data-dismiss="modal">
+                    Add
+                </button>
+                <button type="button"
+                        data-bind="visible: !isNew(), click: updatePerson"
+                        class="btn btn-primary"
+                        data-dismiss="modal">
+                    Update
+                </button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

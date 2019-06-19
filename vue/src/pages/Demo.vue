@@ -31,7 +31,7 @@
             </p>
             <br>
             <p style="margin-bottom:0">
-              Try switching between tenants ('restaura' and 'galeriasenda') and see that
+              Try switching between tenants ('subdomain1' and 'subdomain2') and see that
               the
               app only pulls records which belong to current tenant.
             </p>
