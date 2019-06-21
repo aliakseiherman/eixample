@@ -67,16 +67,6 @@ username: admin
 password: 123qwe
 ```
 
-You can of course create your own user on *Register* page.
-
-Verified with:
-```
-Angular CLI: 7.1.2
-Node: 10.14.1
-OS: win32 x64
-npm v6.4.1
-```
-
 
 
 ## Screenshots
