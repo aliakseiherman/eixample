@@ -71,10 +71,8 @@ password: 123qwe
 
 ## Screenshots
 
-![image](https://i.imgur.com/TaYj8fa.png)
+![image](https://i.imgur.com/Q8UNvXv.png)
 
-![image](https://i.imgur.com/5bFQk46.png)
+![image](https://i.imgur.com/OrsiqEn.png)
 
-![image](https://i.imgur.com/iCLWmp8.png)
-
-![image](https://i.imgur.com/LBnqhEr.png)
+![image](https://i.imgur.com/oQqNUPs.png)
