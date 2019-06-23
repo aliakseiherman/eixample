@@ -23,7 +23,7 @@ import VueToast from 'vue-toast-notification';
 import 'vue-toast-notification/dist/index.css';
 
 const axios = require('axios');
-import http from "./axios-helper/http";
+import http from "./helpers/axios-helper";
 
 // configure router
 const router = new VueRouter({
@@ -41,7 +41,7 @@ Vue.use(GlobalDirectives);
 Vue.use(Notifications);
 Vue.use(VueToast);
 
-http.get('http://localhost:8080/api/Session/GetCurrentLoginDetails')
+http.get('Session/GetCurrentLoginDetails')
   .then(function (response) {
 
     store.commit("setUser", response.data.user);

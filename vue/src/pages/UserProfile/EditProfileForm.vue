@@ -1,7 +1,7 @@
 <template>
   <form>
     <md-card>
-      <md-card-header :data-background-color="dataBackgroundColor">
+      <md-card-header data-background-color="blue">
         <h4 class="title">Edit Profile</h4>
         <p class="category">
           Complete your profile
@@ -11,24 +11,6 @@
 
       <md-card-content>
         <div class="md-layout">
-          <div class="md-layout-item md-small-size-100 md-size-33">
-            <md-field>
-              <label>Company (disabled)</label>
-              <md-input v-model="disabled" disabled></md-input>
-            </md-field>
-          </div>
-          <div class="md-layout-item md-small-size-100 md-size-33">
-            <md-field>
-              <label>User Name</label>
-              <md-input v-model="username" type="text"></md-input>
-            </md-field>
-          </div>
-          <div class="md-layout-item md-small-size-100 md-size-33">
-            <md-field>
-              <label>Email Address</label>
-              <md-input v-model="emailadress" type="email"></md-input>
-            </md-field>
-          </div>
           <div class="md-layout-item md-small-size-100 md-size-50">
             <md-field>
               <label>First Name</label>
@@ -41,38 +23,14 @@
               <md-input v-model="lastname" type="text"></md-input>
             </md-field>
           </div>
-          <div class="md-layout-item md-small-size-100 md-size-100">
-            <md-field>
-              <label>Adress</label>
-              <md-input v-model="address" type="text"></md-input>
-            </md-field>
-          </div>
           <div class="md-layout-item md-small-size-100 md-size-33">
             <md-field>
-              <label>City</label>
-              <md-input v-model="city" type="text"></md-input>
-            </md-field>
-          </div>
-          <div class="md-layout-item md-small-size-100 md-size-33">
-            <md-field>
-              <label>Country</label>
-              <md-input v-model="country" type="text"></md-input>
-            </md-field>
-          </div>
-          <div class="md-layout-item md-small-size-100 md-size-33">
-            <md-field>
-              <label>Postal Code</label>
-              <md-input v-model="code" type="number"></md-input>
-            </md-field>
-          </div>
-          <div class="md-layout-item md-size-100">
-            <md-field maxlength="5">
-              <label>About Me</label>
-              <md-textarea v-model="aboutme"></md-textarea>
+              <label>Email Address</label>
+              <md-input v-model="emailadress" type="email"></md-input>
             </md-field>
           </div>
           <div class="md-layout-item md-size-100 text-right">
-            <md-button class="md-raised md-success">Update Profile</md-button>
+            <md-button disabled class="md-raised md-secondary">Update Profile</md-button>
           </div>
         </div>
       </md-card-content>
@@ -81,7 +39,7 @@
 </template>
 <script>
 import { timeout } from "q";
-import EventBus from '../../bus/event-bus';
+import EventBus from "../../bus/event-bus";
 
 export default {
   name: "edit-profile-form",
@@ -107,17 +65,25 @@ export default {
     };
   },
   created() {
-    let username = this.$store.getters.user ? this.$store.getters.user.userName : null;
-    let firstname = this.$store.getters.user ? this.$store.getters.user.firstName : null;
-    let lastname = this.$store.getters.user ? this.$store.getters.user.lastName : null;
-    let email = this.$store.getters.user ? this.$store.getters.user.email : null;
+    let username = this.$store.getters.user
+      ? this.$store.getters.user.userName
+      : null;
+    let firstname = this.$store.getters.user
+      ? this.$store.getters.user.firstName
+      : null;
+    let lastname = this.$store.getters.user
+      ? this.$store.getters.user.lastName
+      : null;
+    let email = this.$store.getters.user
+      ? this.$store.getters.user.email
+      : null;
 
     this.username = username;
     this.firstname = firstname;
     this.lastname = lastname;
     this.emailadress = email;
 
-    EventBus.$emit('on-edit-profile-created', 'lorem ipsum dolot sit amet...'); // demo
+    EventBus.$emit("on-edit-profile-created", "lorem ipsum dolot sit amet..."); // demo
   }
 };
 </script>

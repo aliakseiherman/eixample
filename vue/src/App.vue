@@ -3,21 +3,15 @@
 </template>
 
 <script>
+import EventBus from "./bus/event-bus";
+
 export default {
-  beforeCreate() {
-    this.$http.interceptors.response.use(
-      response => {
-        return response;
-      },
-      err => {
-        this.$toast.open({ message: err.response.data.error, type: "error" });
-        // Unauthorised, log out
-        if (err.response && err.response.status === 401) {
-          // this.logout();
-        }
-        return Promise.reject(err);
-      }
-    );
-  }
+  mounted() {
+    EventBus.$on("notification", function(payload) {
+      console.log(payload);
+      this.$toast.open({ message: payload.message, type: payload.type });
+    });
+  },
+  beforeCreate() {}
 };
 </script>

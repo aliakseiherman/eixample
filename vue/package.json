@@ -3,7 +3,7 @@
   "version": "1.1.0",
   "private": true,
   "scripts": {
-    "serve": "vue-cli-service serve --open",
+    "serve": "vue-cli-service serve --open --host eixample --port 4000",
     "dev": "npm run serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint"
@@ -22,10 +22,10 @@
     "vuex": "^3.1.0"
   },
   "devDependencies": {
-    "@vue/cli-plugin-babel": "3.4.0",
+    "@vue/cli-plugin-babel": "^3.8.0",
     "@vue/cli-plugin-eslint": "3.4.0",
     "@vue/cli-service": "3.4.0",
-    "@vue/eslint-config-prettier": "4.0.1",
+    "@vue/eslint-config-prettier": "^4.0.1",
     "es6-promise": "4.2.5",
     "eslint-plugin-vue": "5.1.0",
     "node-sass": "4.11.0",

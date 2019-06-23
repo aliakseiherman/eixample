@@ -3,7 +3,7 @@
     <div class="md-layout">
       <div class="md-layout-item md-medium-size-100 md-xsmall-size-100 md-size-100">
         <md-card>
-          <md-card-header data-background-color="green">
+          <md-card-header data-background-color="blue">
             <h4 class="title">People</h4>
             <hr>
             <p>This page demonstrates audit functionality.</p>
@@ -42,29 +42,27 @@
             </p>
           </md-card-header>
           <md-card-content>
-            <md-button
-              class="md-icon-button md-raised"
-              style="float: right;"
-              @click="showPersonDialog(null)"
-            >
-              <md-icon>add</md-icon>
-            </md-button>
-            <br>
-            <br>
             <div>
+              <md-button
+                class="md-dense md-raised md-info"
+                @click="showPersonDialog(null)"
+              >Add Person</md-button>
+              <br>
+              <br>
               <md-table v-model="persons" :table-header-color="tableHeaderColor">
                 <md-table-row slot="md-table-row" slot-scope="{ item }">
+                  <md-table-cell md-label="Id">{{ item.id }}</md-table-cell>
                   <md-table-cell md-label="Name">{{ item.name }}</md-table-cell>
                   <md-table-cell md-label="Description">{{ item.description }}</md-table-cell>
                   <md-table-cell md-label>
                     <md-button
-                      class="md-dense md-raised md-primary"
+                      class="md-dense md-raised md-secondary"
                       @click="showPersonDialog(item)"
                     >Edit</md-button>
                   </md-table-cell>
                   <md-table-cell md-label>
                     <md-button
-                      class="md-dense md-raised md-primary"
+                      class="md-dense md-raised md-secondary"
                       @click="deletePerson(item)"
                     >Delete</md-button>
                   </md-table-cell>
@@ -81,20 +79,24 @@
         <md-dialog-title v-if="!id">Add Person</md-dialog-title>
         <md-dialog-title v-if="id">Update Person</md-dialog-title>
 
-        <md-field>
-          <label>Name</label>
-          <md-input v-model="name"></md-input>
-        </md-field>
+        <md-dialog-content>
+          <div>
+            <md-field>
+              <label>Name</label>
+              <md-input v-model="name"></md-input>
+            </md-field>
 
-        <md-field>
-          <label>Description</label>
-          <md-textarea v-model="description"></md-textarea>
-        </md-field>
+            <md-field>
+              <label>Description</label>
+              <md-textarea v-model="description"></md-textarea>
+            </md-field>
+          </div>
+        </md-dialog-content>
 
         <md-dialog-actions>
+          <md-button class="md-info" v-if="!id" @click="add()">Add</md-button>
+          <md-button class="md-info" v-if="id" @click="update()">Update</md-button>
           <md-button class="md-secondary" @click="showDialog = false">Cancel</md-button>
-          <md-button class="md-primary" v-if="!id" @click="add()">Add</md-button>
-          <md-button class="md-primary" v-if="id" @click="update()">Update</md-button>
         </md-dialog-actions>
       </md-dialog>
     </div>
@@ -103,7 +105,8 @@
 
 <script>
 import { SimpleTable, OrderedTable } from "@/components";
-import http from "../axios-helper/http";
+import http from "../helpers/axios-helper";
+import { notify } from "../helpers/notification-helper";
 
 export default {
   components: {
@@ -146,11 +149,12 @@ export default {
     add() {
       var self = this;
       http
-        .post("http://localhost:8080/api/Person/Add", {
+        .post("Person/Add", {
           name: self.name,
           description: self.description
         })
         .then(function(response) {
+          notify("success", "Person Added");
           self.loadData();
           self.showDialog = false;
         });
@@ -158,12 +162,13 @@ export default {
     update() {
       var self = this;
       http
-        .post("http://localhost:8080/api/Person/Update", {
+        .post("Person/Update", {
           id: self.id,
           name: self.name,
           description: self.description
         })
         .then(function(response) {
+          notify("success", "Person Updated");
           self.loadData();
           self.showDialog = false;
         });
@@ -171,21 +176,20 @@ export default {
     deletePerson(person) {
       var self = this;
       http
-        .post("http://localhost:8080/api/Person/Delete", {
+        .post("Person/Delete", {
           id: person.id
         })
         .then(function(response) {
+          notify("success", "Person Deleted");
           self.loadData();
           self.showDialog = false;
         });
     },
     loadData() {
       var self = this;
-      http
-        .get("http://localhost:8080/api/Person/GetAll")
-        .then(function(response) {
-          self.persons = response.data;
-        });
+      http.get("Person/GetAll").then(function(response) {
+        self.persons = response.data;
+      });
     }
   },
   created: function() {
