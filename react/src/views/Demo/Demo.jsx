@@ -31,7 +31,7 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 
 import store from '../../store/store';
-import { notify } from '../../helpers/notification-helper';
+import toastr from '../../helpers/notification-helper';
 
 const useStyles = makeStyles({
   avatar: {
@@ -63,7 +63,7 @@ function EditPersonDialog(props) {
           description: personEdited.description
         })
         .then(function (response) {
-          notify('success', 'Person Updated');
+          toastr.success('Person Updated');
           handleClose();
         });
     } else {
@@ -73,7 +73,7 @@ function EditPersonDialog(props) {
           description: personEdited.description
         })
         .then(function (response) {
-          notify('success', 'Person Added');
+          toastr.success('Person Added');
           handleClose();
         });
     }
@@ -182,7 +182,7 @@ function Demo(props) {
         id: person.id
       })
       .then(function (response) {
-        notify('success', 'Person Deleted');
+        toastr.success('Person Deleted');
         loadPeople();
       });
   }

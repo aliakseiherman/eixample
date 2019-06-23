@@ -106,7 +106,7 @@
 <script>
 import { SimpleTable, OrderedTable } from "@/components";
 import http from "../helpers/axios-helper";
-import { notify } from "../helpers/notification-helper";
+import toastr from "../helpers/notification-helper";
 
 export default {
   components: {
@@ -154,7 +154,7 @@ export default {
           description: self.description
         })
         .then(function(response) {
-          notify("success", "Person Added");
+          toastr.success("Person Added");
           self.loadData();
           self.showDialog = false;
         });
@@ -168,7 +168,7 @@ export default {
           description: self.description
         })
         .then(function(response) {
-          notify("success", "Person Updated");
+          toastr.success("Person Updated");
           self.loadData();
           self.showDialog = false;
         });
@@ -180,7 +180,7 @@ export default {
           id: person.id
         })
         .then(function(response) {
-          notify("success", "Person Deleted");
+          toastr.success("Person Deleted");
           self.loadData();
           self.showDialog = false;
         });

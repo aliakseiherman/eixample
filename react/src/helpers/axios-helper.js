@@ -1,4 +1,4 @@
-import { notify } from './notification-helper';
+import toastr from './notification-helper';
 
 const axios = require("axios");
 
@@ -19,14 +19,14 @@ axios.interceptors.response.use(function (response) {
     return response;
 }, function (error) {
     console.error(error);
-    
+
     // unauthorised
     if (error.response.status === 401) {
         window.location = "/";
     }
 
     if (error.response.data) {
-        notify('error', error.response.data.error);
+        toastr.error(error.response.data.error);
     }
     return Promise.reject(error);
 });
