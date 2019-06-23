@@ -71,10 +71,10 @@ password: 123qwe
 
 ## Screenshots
 
-![image](https://i.imgur.com/Q8UNvXv.png)
+![image](https://i.imgur.com/6dElfAj.png)
 
-![image](https://i.imgur.com/OrsiqEn.png)
+![image](https://i.imgur.com/taDwNNq.png)
 
-![image](https://i.imgur.com/oQqNUPs.png)
+![image](https://i.imgur.com/2lFPTQF.png)
 
 ![image](https://i.imgur.com/1YWeawI.png)
