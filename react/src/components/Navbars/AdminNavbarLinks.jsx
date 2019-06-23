@@ -20,25 +20,56 @@ import Button from "components/CustomButtons/Button.jsx";
 
 import headerLinksStyle from "assets/jss/material-dashboard-react/components/headerLinksStyle.jsx";
 
+import { Link } from 'react-router-dom';
+
+import store from '../../store/store';
+
 class HeaderLinks extends React.Component {
   state = {
-    open: false
-  };
-  handleToggle = () => {
-    this.setState(state => ({ open: !state.open }));
+    notificationsOpen: false,
+    profileOpen: false
   };
 
-  handleClose = event => {
-    if (this.anchorEl.contains(event.target)) {
+  handleToggleProfile = () => {
+    this.setState(state => ({ profileOpen: !state.profileOpen }));
+  };
+
+  handleCloseProfile = event => {
+    if (this.anchorElProfile.contains(event.target)) {
       return;
     }
 
-    this.setState({ open: false });
+    this.setState({ profileOpen: false });
+  };
+
+  handleToggleNotifications = () => {
+    this.setState(state => ({ notificationsOpen: !state.notificationsOpen }));
+  };
+
+  handleCloseNotifications = event => {
+    if (this.anchorElNotifications.contains(event.target)) {
+      return;
+    }
+
+    this.setState({ notificationsOpen: false });
+  };
+
+  logout = event => {
+    localStorage.removeItem("token");
+    window.location = "/";
   };
 
   render() {
     const { classes } = this.props;
-    const { open } = this.state;
+    const { notificationsOpen, profileOpen } = this.state;
+    // const { profileOpen } = this.state;
+
+    store.subscribe(() => {
+      if (store.getState().bus.text) {
+        console.log(store.getState().bus.text);
+      }
+    });
+
     return (
       <div>
         <div className={classes.searchWrapper}>
@@ -72,14 +103,14 @@ class HeaderLinks extends React.Component {
         <div className={classes.manager}>
           <Button
             buttonRef={node => {
-              this.anchorEl = node;
+              this.anchorElNotifications = node;
             }}
             color={window.innerWidth > 959 ? "transparent" : "white"}
             justIcon={window.innerWidth > 959}
             simple={!(window.innerWidth > 959)}
-            aria-owns={open ? "menu-list-grow" : null}
+            aria-owns={notificationsOpen ? "menu-list-grow" : null}
             aria-haspopup="true"
-            onClick={this.handleToggle}
+            onClick={this.handleToggleNotifications}
             className={classes.buttonLink}
           >
             <Notifications className={classes.icons} />
@@ -91,12 +122,12 @@ class HeaderLinks extends React.Component {
             </Hidden>
           </Button>
           <Poppers
-            open={open}
-            anchorEl={this.anchorEl}
+            open={notificationsOpen}
+            anchorEl={this.anchorElNotifications}
             transition
             disablePortal
             className={
-              classNames({ [classes.popperClose]: !open }) +
+              classNames({ [classes.popperClose]: !notificationsOpen }) +
               " " +
               classes.pooperNav
             }
@@ -111,34 +142,34 @@ class HeaderLinks extends React.Component {
                 }}
               >
                 <Paper>
-                  <ClickAwayListener onClickAway={this.handleClose}>
+                  <ClickAwayListener onClickAway={this.handleCloseNotifications}>
                     <MenuList role="menu">
                       <MenuItem
-                        onClick={this.handleClose}
+                        onClick={this.handleCloseNotifications}
                         className={classes.dropdownItem}
                       >
                         Mike John responded to your email
                       </MenuItem>
                       <MenuItem
-                        onClick={this.handleClose}
+                        onClick={this.handleCloseNotifications}
                         className={classes.dropdownItem}
                       >
                         You have 5 new tasks
                       </MenuItem>
                       <MenuItem
-                        onClick={this.handleClose}
+                        onClick={this.handleCloseNotifications}
                         className={classes.dropdownItem}
                       >
                         You're now friend with Andrew
                       </MenuItem>
                       <MenuItem
-                        onClick={this.handleClose}
+                        onClick={this.handleCloseNotifications}
                         className={classes.dropdownItem}
                       >
                         Another Notification
                       </MenuItem>
                       <MenuItem
-                        onClick={this.handleClose}
+                        onClick={this.handleCloseNotifications}
                         className={classes.dropdownItem}
                       >
                         Another One
@@ -150,19 +181,70 @@ class HeaderLinks extends React.Component {
             )}
           </Poppers>
         </div>
-        <Button
-          color={window.innerWidth > 959 ? "transparent" : "white"}
-          justIcon={window.innerWidth > 959}
-          simple={!(window.innerWidth > 959)}
-          aria-label="Person"
-          className={classes.buttonLink}
-        >
-          <Person className={classes.icons} />
-          <Hidden mdUp implementation="css">
-            <p className={classes.linkText}>Profile</p>
-          </Hidden>
-        </Button>
-      </div>
+
+        <div className={classes.manager}>
+          <Button
+            buttonRef={node => {
+              this.anchorElProfile = node;
+            }}
+            color={window.innerWidth > 959 ? "transparent" : "white"}
+            justIcon={window.innerWidth > 959}
+            simple={!(window.innerWidth > 959)}
+            aria-owns={profileOpen ? "account-menu-list-grow" : null}
+            aria-haspopup="true"
+            onClick={this.handleToggleProfile}
+            className={classes.buttonLink}
+          >
+            <Person className={classes.icons} />
+            <Hidden mdUp implementation="css">
+              <p className={classes.linkText}>Profile</p>
+            </Hidden>
+          </Button>
+          <Poppers
+            open={profileOpen}
+            anchorEl={this.anchorElProfile}
+            transition
+            disablePortal
+            className={
+              classNames({ [classes.popperClose]: !profileOpen }) +
+              " " +
+              classes.pooperNav
+            }
+          >
+            {({ TransitionProps, placement }) => (
+              <Grow
+                {...TransitionProps}
+                id="account-menu-list-grow"
+                style={{
+                  transformOrigin:
+                    placement === "bottom" ? "center top" : "center bottom"
+                }}
+              >
+                <Paper>
+                  <ClickAwayListener onClickAway={this.handleCloseProfile}>
+                    <MenuList role="menu">
+                      <MenuItem
+                        onClick={this.handleCloseProfile}
+                        className={classes.dropdownItem}
+                      >
+                        <Link to={`/app/user`}>Profile</Link>
+                      </MenuItem>
+                      <MenuItem
+                        onClick={this.logout}
+                        className={classes.dropdownItem}
+                      >
+                        Logout
+                      </MenuItem>
+                    </MenuList>
+                  </ClickAwayListener>
+                </Paper>
+              </Grow>
+            )}
+          </Poppers>
+        </div>
+
+
+      </div >
     );
   }
 }

@@ -17,6 +17,8 @@ import routes from "routes.js";
 
 import rtlStyle from "assets/jss/material-dashboard-react/layouts/rtlStyle.jsx";
 
+import Notification from "../components/Notification/Notification";
+
 import image from "assets/img/sidebar-2.jpg";
 import logo from "assets/img/reactlogo.png";
 
@@ -64,7 +66,7 @@ class RTL extends React.Component {
     this.setState({ mobileOpen: !this.state.mobileOpen });
   };
   getRoute() {
-    return this.props.location.pathname !== "/admin/maps";
+    return this.props.location.pathname !== "/rtl/maps";
   }
   resizeFunction = () => {
     if (window.innerWidth >= 960) {
@@ -116,10 +118,11 @@ class RTL extends React.Component {
               <div className={classes.container}>{switchRoutes}</div>
             </div>
           ) : (
-            <div className={classes.map}>{switchRoutes}</div>
-          )}
+              <div className={classes.map}>{switchRoutes}</div>
+            )}
           {this.getRoute() ? <Footer /> : null}
         </div>
+        <Notification />
       </div>
     );
   }
