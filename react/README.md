@@ -41,3 +41,6 @@
 ### login functionality
 
 [page - react/src/views/Account/Login/Login.jsx](https://github.com/aliakseiherman/eixample/blob/master/react/src/views/Account/Login/Login.jsx)
+
+
+![image](https://8f80bw.am.files.1drv.com/y4mBEHnqTPp5frh7vTJKdXfNwbkAbZcMrqEe-mVBdDeqRjHXX09HKdgAiB9K7zVlJKflllKoz1zTuavaJjKkhtmjnjISacMPZnbf9AUl3UvYaDmYlpipNq_bvF1N-xpMWNVKlm-DUgFyEjRZdxi7UAtSfFMdgrU38vD856zcZJTt2D_ymFCNmeL_iX71Qg_wZufsR2E82TpfJy4V-XOYSxrLA/react.gif?download&psid=1)

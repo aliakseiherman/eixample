@@ -41,3 +41,6 @@
 ### login functionality
 
 [page - vue/src/pages/Login.vue](https://github.com/aliakseiherman/eixample/blob/master/vue/src/pages/Login.vue)
+
+
+![image](https://veumza.am.files.1drv.com/y4mOh_0StToglpau63pmF7VgqIlzLLxP3f8_My-O41iqiitjeQBu4sonB_g-U6h-mEeEON_-RQznSiETjTDlSFaezPcor-3vpxPo1hSkkN67tNf2kPIrTdz8GvJT7hRqMRIBRS2F1FA2bDmtWpawMfw9_hBfWWHeMW-ZOIV_32LV-rgAXODW2ymEeaOMCNYoSJNXT_c5iZS8YVq8ZR0SmwHpA/vue.gif?download&psid=1)

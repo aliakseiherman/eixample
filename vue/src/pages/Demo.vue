@@ -104,14 +104,11 @@
 </template>
 
 <script>
-import { SimpleTable, OrderedTable } from "@/components";
 import http from "../helpers/axios-helper";
 import toastr from "../helpers/notification-helper";
 
 export default {
   components: {
-    OrderedTable,
-    SimpleTable
   },
   props: {
     tableHeaderColor: {
@@ -153,7 +150,7 @@ export default {
           name: self.name,
           description: self.description
         })
-        .then(function(response) {
+        .then(function() {
           toastr.success("Person Added");
           self.loadData();
           self.showDialog = false;
@@ -167,7 +164,7 @@ export default {
           name: self.name,
           description: self.description
         })
-        .then(function(response) {
+        .then(function() {
           toastr.success("Person Updated");
           self.loadData();
           self.showDialog = false;
@@ -179,7 +176,7 @@ export default {
         .post("Person/Delete", {
           id: person.id
         })
-        .then(function(response) {
+        .then(function() {
           toastr.success("Person Deleted");
           self.loadData();
           self.showDialog = false;
