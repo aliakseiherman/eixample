@@ -1,4 +1,4 @@
-# eixample
+# Example
 
 
 ## Multi-Tenant ASP.NET Core Architecture
