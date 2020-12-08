@@ -22,6 +22,7 @@ using NSwag.AspNetCore;
 using NSwag.SwaggerGeneration.Processors.Security;
 using System;
 using System.Reflection;
+using Newtonsoft.Json.Serialization;
 
 namespace eixample.Host
 {
@@ -39,15 +40,16 @@ namespace eixample.Host
             services
                 .AddMvc(options =>
                 {
+                    options.EnableEndpointRouting = false;
                     options.Filters.Add(typeof(MultiTenancyFilter));
                 })
-                .AddControllersAsServices()
-                .AddJsonOptions(options =>
+                .AddNewtonsoftJson(o =>
                 {
-                    options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+                    o.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+                    o.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
                 })
-                .SetCompatibilityVersion(CompatibilityVersion.Version_2_1)
                 .AddSessionStateTempDataProvider();
+
             
             services
                 .AddIdentity<ApplicationUser, ApplicationRole>()
