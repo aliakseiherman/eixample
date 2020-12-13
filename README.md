@@ -75,6 +75,4 @@ password: 123qwe
 
 ![image](https://i.imgur.com/taDwNNq.png)
 
-![image](https://i.imgur.com/2lFPTQF.png)
-
 ![image](https://i.imgur.com/1YWeawI.png)
