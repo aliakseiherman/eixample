@@ -1,7 +1,7 @@
 # eixample
 
 
-## Multi-Tenant ASP.NET Core Architecture
+## Multi-Tenant .NET 6 Architecture (ASP.NET Core)
 
 ![image](https://i.imgur.com/cqE6kAj.png)
 
@@ -9,15 +9,14 @@
 
  - Multi-Tenancy
  - **Tenant resolved by subdomain**
- - Audit (both for EF 6.x and EF Core)
- - EF 6.x Dynamic Filters
- - Soft Delete
- - Automatic HTTP proxies generation for the front-end
+ - Audit at **EF Core** level
+ - ~~Soft Delete~~ **DEPRECATED — reason: it's unnatural for RDBMS to keep inactive records; leads to issues with FK constraint; use separate database to keep the log of the deleted records along with the related info; alternatively, consider Event Sourcing pattern;**
+ - Automatic HTTP proxies generation for the front-end (Angular)
  - JWT Authentication
  - SPA front-end (Angular, Vue, React)
  - basic login / signup functionality
- - demo functionality (demonstrates auditing for EF entities)
- - one user per many tenants (as with *.stackexchange.com)
+ - demo functionality (demonstrates audit functionality)
+ - one user per multiple tenants (as with *.stackexchange.com)
 
 
 ## Setup
@@ -73,6 +72,6 @@ password: 123qwe
 
 ![image](https://i.imgur.com/6dElfAj.png)
 
-![image](https://i.imgur.com/taDwNNq.png)
+![image](https://i.imgur.com/PWtGK7y.png)
 
-![image](https://i.imgur.com/1YWeawI.png)
+![image](https://i.imgur.com/MpQn2gx.png)
