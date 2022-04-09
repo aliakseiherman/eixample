@@ -2,10 +2,8 @@
 using eixample.Extensions;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using System.Threading;
-using System.Threading.Tasks;
 
-namespace eixample.EntityFrameworkCore.EntityFrameworkCore
+namespace eixample.EntityFrameworkCore
 {
     public class AppDbContext : IdentityDbContext<ApplicationUser, ApplicationRole, string>
     {
@@ -18,21 +16,19 @@ namespace eixample.EntityFrameworkCore.EntityFrameworkCore
 
         public DbSet<Membership> Memberships { get; set; }
 
-        public DbSet<Person> Persons { get; set; }
+        public DbSet<Item> Items { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.NamesToSnakeCase(); // PostgreSQL
-            modelBuilder.EnableSoftDelete();
         }
 
         public override int SaveChanges()
         {
             ChangeTracker.DetectChanges();
             ChangeTracker.ProcessModification(UserId);
-            ChangeTracker.ProcessDeletion(UserId);
             ChangeTracker.ProcessCreation(UserId, TenantId);
 
             return base.SaveChanges();
@@ -42,7 +38,6 @@ namespace eixample.EntityFrameworkCore.EntityFrameworkCore
         {
             ChangeTracker.DetectChanges();
             ChangeTracker.ProcessModification(UserId);
-            ChangeTracker.ProcessDeletion(UserId);
             ChangeTracker.ProcessCreation(UserId, TenantId);
 
             return (await base.SaveChangesAsync(true, cancellationToken));

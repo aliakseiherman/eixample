@@ -3,7 +3,7 @@ using eixample.Miscellaneous;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 
-namespace eixample.EntityFrameworkCore.EntityFrameworkCore
+namespace eixample.EntityFrameworkCore
 {
     public class DbContextOptionsBuilder
     {

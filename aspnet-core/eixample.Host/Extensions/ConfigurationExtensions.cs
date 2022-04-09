@@ -1,7 +1,4 @@
-﻿using Microsoft.Extensions.Configuration;
-using Microsoft.IdentityModel.Tokens;
-using System;
-using System.Linq;
+﻿using Microsoft.IdentityModel.Tokens;
 using System.Text;
 
 namespace eixample.Extensions
@@ -10,25 +7,25 @@ namespace eixample.Extensions
     {
         public static string GetIssuerSigningKey(this IConfiguration configuration)
         {
-            string result = configuration.GetValue<string>("Authentication:JwtBearer:SecurityKey");
+            string result = configuration["Authentication:JwtBearer:SecurityKey"];
             return result;
         }
 
         public static string GetValidIssuer(this IConfiguration configuration)
         {
-            string result = configuration.GetValue<string>("Authentication:JwtBearer:Issuer");
+            string result = configuration["Authentication:JwtBearer:Issuer"];
             return result;
         }
 
         public static string GetValidAudience(this IConfiguration configuration)
         {
-            string result = configuration.GetValue<string>("Authentication:JwtBearer:Audience");
+            string result = configuration["Authentication:JwtBearer:Audience"];
             return result;
         }
 
         public static string GetDefaultPolicy(this IConfiguration configuration)
         {
-            string result = configuration.GetValue<string>("Policies:Default");
+            string result = configuration["Policies:Default"];
             return result;
         }
 
@@ -43,7 +40,7 @@ namespace eixample.Extensions
         public static string[] GetCorsOrigins(this IConfiguration configuration)
         {
             string[] result =
-                configuration.GetValue<string>("App:CorsOrigins")
+                configuration["App:CorsOrigins"]
                 .Split(",", StringSplitOptions.RemoveEmptyEntries)
                 .ToArray();
 

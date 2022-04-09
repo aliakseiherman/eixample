@@ -1,7 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using System;
-
-namespace eixample.Extensions
+﻿namespace eixample.Extensions
 {
     public static class HttpRequestExtensions
     {

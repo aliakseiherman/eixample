@@ -10,7 +10,7 @@ namespace eixample.Entities
 
         public virtual Tenant Tenant { get; set; }
 
-        public int TenantId { get; set; }
+        public int? TenantId { get; set; }
 
         public DateTime CreationTime { get; set; }
     }

@@ -1,9 +1,8 @@
 ﻿using eixample.Consts;
 using eixample.Entities;
-using eixample.EntityFrameworkCore.EntityFrameworkCore;
-using System.Linq;
+using eixample.EntityFrameworkCore;
 
-namespace eixample.Application.SeedData
+namespace eixample.SeedData
 {
     public class TenantsCreator
     {
@@ -22,7 +21,7 @@ namespace eixample.Application.SeedData
 
         private void CreateTenant(string name, string hostName)
         {
-            Tenant tenant = _context.Tenants.FirstOrDefault(x => x.HostName.Equals(hostName));
+            Tenant tenant = _context.Tenants.SingleOrDefault(x => x.HostName.Equals(hostName));
 
             if (tenant == null)
             {

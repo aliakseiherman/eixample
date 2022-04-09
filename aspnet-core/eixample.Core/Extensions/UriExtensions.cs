@@ -1,6 +1,4 @@
 ﻿using eixample.Consts;
-using System;
-using System.Linq;
 
 namespace eixample.Extensions
 {

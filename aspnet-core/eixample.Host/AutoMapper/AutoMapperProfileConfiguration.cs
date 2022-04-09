@@ -8,7 +8,11 @@ namespace eixample.Miscellaneous
     {
         public AutoMapperProfileConfiguration()
         {
-            CreateMap<PersonDto, Person>();
+            CreateMap<ApplicationUser, UserDto>();
+            CreateMap<UserDto, ApplicationUser>();
+            CreateMap<Item, ItemDto>();
+            CreateMap<ItemDto, Item>();
+            CreateMap<Tenant, TenantDto>();
         }
     }
 }

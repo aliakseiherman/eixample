@@ -456,7 +456,7 @@ export class ApiServiceProxy {
 }
 
 @Injectable()
-export class PersonServiceProxy {
+export class ItemServiceProxy {
     private http: HttpClient;
     private baseUrl: string;
     protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
@@ -466,8 +466,8 @@ export class PersonServiceProxy {
         this.baseUrl = baseUrl ? baseUrl : "http://localhost:8080";
     }
 
-    add(input: PersonDto): Observable<boolean> {
-        let url_ = this.baseUrl + "/api/Person/Add";
+    add(input: ItemDto): Observable<boolean> {
+        let url_ = this.baseUrl + "/api/Item/Add";
         url_ = url_.replace(/[?&]$/, "");
 
         const content_ = JSON.stringify(input);
@@ -519,8 +519,8 @@ export class PersonServiceProxy {
         return _observableOf<boolean>(<any>null);
     }
 
-    update(input: PersonDto): Observable<boolean> {
-        let url_ = this.baseUrl + "/api/Person/Update";
+    update(input: ItemDto): Observable<boolean> {
+        let url_ = this.baseUrl + "/api/Item/Update";
         url_ = url_.replace(/[?&]$/, "");
 
         const content_ = JSON.stringify(input);
@@ -572,8 +572,8 @@ export class PersonServiceProxy {
         return _observableOf<boolean>(<any>null);
     }
 
-    delete(input: PersonDto): Observable<boolean> {
-        let url_ = this.baseUrl + "/api/Person/Delete";
+    delete(input: ItemDto): Observable<boolean> {
+        let url_ = this.baseUrl + "/api/Item/Delete";
         url_ = url_.replace(/[?&]$/, "");
 
         const content_ = JSON.stringify(input);
@@ -625,8 +625,8 @@ export class PersonServiceProxy {
         return _observableOf<boolean>(<any>null);
     }
 
-    getAll(): Observable<PersonDto[] | null> {
-        let url_ = this.baseUrl + "/api/Person/GetAll";
+    getAll(): Observable<ItemDto[] | null> {
+        let url_ = this.baseUrl + "/api/Item/GetAll";
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -645,14 +645,14 @@ export class PersonServiceProxy {
                 try {
                     return this.processGetAll(<any>response_);
                 } catch (e) {
-                    return <Observable<PersonDto[] | null>><any>_observableThrow(e);
+                    return <Observable<ItemDto[] | null>><any>_observableThrow(e);
                 }
             } else
-                return <Observable<PersonDto[] | null>><any>_observableThrow(response_);
+                return <Observable<ItemDto[] | null>><any>_observableThrow(response_);
         }));
     }
 
-    protected processGetAll(response: HttpResponseBase): Observable<PersonDto[] | null> {
+    protected processGetAll(response: HttpResponseBase): Observable<ItemDto[] | null> {
         const status = response.status;
         const responseBlob = 
             response instanceof HttpResponse ? response.body : 
@@ -666,7 +666,7 @@ export class PersonServiceProxy {
             if (resultData200 && resultData200.constructor === Array) {
                 result200 = [] as any;
                 for (let item of resultData200)
-                    result200.push(PersonDto.fromJS(item));
+                    result200.push(ItemDto.fromJS(item));
             }
             return _observableOf(result200);
             }));
@@ -675,7 +675,7 @@ export class PersonServiceProxy {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
-        return _observableOf<PersonDto[] | null>(<any>null);
+        return _observableOf<ItemDto[] | null>(<any>null);
     }
 }
 
@@ -1419,11 +1419,11 @@ export interface IEntityDtoOfInt64 {
     id: number;
 }
 
-export class PersonDto extends EntityDtoOfInt64 implements IPersonDto {
+export class ItemDto extends EntityDtoOfInt64 implements IItemDto {
     name: string | undefined;
     description: string | undefined;
 
-    constructor(data?: IPersonDto) {
+    constructor(data?: IItemDto) {
         super(data);
     }
 
@@ -1435,9 +1435,9 @@ export class PersonDto extends EntityDtoOfInt64 implements IPersonDto {
         }
     }
 
-    static fromJS(data: any): PersonDto {
+    static fromJS(data: any): ItemDto {
         data = typeof data === 'object' ? data : {};
-        let result = new PersonDto();
+        let result = new ItemDto();
         result.init(data);
         return result;
     }
@@ -1450,15 +1450,15 @@ export class PersonDto extends EntityDtoOfInt64 implements IPersonDto {
         return data; 
     }
 
-    clone(): PersonDto {
+    clone(): ItemDto {
         const json = this.toJSON();
-        let result = new PersonDto();
+        let result = new ItemDto();
         result.init(json);
         return result;
     }
 }
 
-export interface IPersonDto extends IEntityDtoOfInt64 {
+export interface IItemDto extends IEntityDtoOfInt64 {
     name: string | undefined;
     description: string | undefined;
 }

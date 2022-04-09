@@ -27,12 +27,12 @@
                 public const string Email = "joe.admin@live.com";
             }
 
-            public static class JohnRoe
+            public static class JohnDoe
             {
                 public const string FirstName = "John";
-                public const string LastName = "Roe";
-                public const string UserName = "johnroe";
-                public const string Email = "john.roe@live.com";
+                public const string LastName = "Doe";
+                public const string UserName = "johndoe";
+                public const string Email = "john.doe@live.com";
             }
 
             public static class Passwords

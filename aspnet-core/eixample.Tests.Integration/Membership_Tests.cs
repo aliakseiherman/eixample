@@ -12,7 +12,7 @@ namespace eixample.Tests.Integration
         {
             var tenant = DbContext.Tenants.Single(x => x.HostName == SetupConsts.Tenants.Subdomain2.HostName);
             var adminJoe = DbContext.Users.Single(x => x.UserName == SetupConsts.Users.AdminJoe.UserName);
-            var johnRoe = DbContext.Users.Single(x => x.UserName == SetupConsts.Users.JohnRoe.UserName);
+            var johnRoe = DbContext.Users.Single(x => x.UserName == SetupConsts.Users.JohnDoe.UserName);
 
             DbContext.UserId = adminJoe.Id;
             DbContext.TenantId = tenant.Id;

@@ -2,11 +2,9 @@
 using eixample.Application;
 using eixample.Dto;
 using eixample.Entities;
-using eixample.EntityFrameworkCore.EntityFrameworkCore;
+using eixample.EntityFrameworkCore;
 using eixample.Host.Models.Session;
 using Microsoft.AspNetCore.Mvc;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace eixample.Host.Controllers
 {
@@ -62,7 +60,7 @@ namespace eixample.Host.Controllers
                 var user = _dbContext.Users.SingleOrDefault(x => x.Id == _session.UserId);
                 if (user != null)
                 {
-                    var userDto = _mapper.Map<ApplicationUser, UserDto>(user);
+                    var userDto = _mapper.Map<UserDto>(user);
                     return userDto;
                 }
             }

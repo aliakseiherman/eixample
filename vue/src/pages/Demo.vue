@@ -4,13 +4,13 @@
       <div class="md-layout-item md-medium-size-100 md-xsmall-size-100 md-size-100">
         <md-card>
           <md-card-header data-background-color="blue">
-            <h4 class="title">People</h4>
+            <h4 class="title">Items</h4>
             <hr>
             <p>This page demonstrates audit functionality.</p>
             <p style="margin-bottom:0">
               Using pgAdmin you can track changes made by the app. We are
               dealing with
-              <b>Persons</b> table.
+              <b>Items</b> table.
             </p>
             <br>
             <p style="margin-bottom:0">
@@ -24,32 +24,22 @@
               <b>ModificationTime</b> and
               <b>ModifierID</b>.
             </p>
-            <p style="margin-bottom:0">
-              Delete record and have a look at
-              <b>DeletionTime</b> and
-              <b>DeleterID</b>.
-            </p>
             <br>
             <p style="margin-bottom:0">
               Try switching between tenants ('subdomain1' and 'subdomain2') and see that
               the
               app only pulls records which belong to current tenant.
             </p>
-            <br>
-            <p style="margin-bottom:0">
-              Note that we've applied Dynamic Filter to avoid pulling soft-deleted
-              records.
-            </p>
           </md-card-header>
           <md-card-content>
             <div>
               <md-button
                 class="md-dense md-raised md-info"
-                @click="showPersonDialog(null)"
-              >Add Person</md-button>
+                @click="showItemDialog(null)"
+              >Add Item</md-button>
               <br>
               <br>
-              <md-table v-model="persons" :table-header-color="tableHeaderColor">
+              <md-table v-model="items" :table-header-color="tableHeaderColor">
                 <md-table-row slot="md-table-row" slot-scope="{ item }">
                   <md-table-cell md-label="Id">{{ item.id }}</md-table-cell>
                   <md-table-cell md-label="Name">{{ item.name }}</md-table-cell>
@@ -57,13 +47,13 @@
                   <md-table-cell md-label>
                     <md-button
                       class="md-dense md-raised md-secondary"
-                      @click="showPersonDialog(item)"
+                      @click="showItemDialog(item)"
                     >Edit</md-button>
                   </md-table-cell>
                   <md-table-cell md-label>
                     <md-button
                       class="md-dense md-raised md-secondary"
-                      @click="deletePerson(item)"
+                      @click="deleteItem(item)"
                     >Delete</md-button>
                   </md-table-cell>
                 </md-table-row>
@@ -76,8 +66,8 @@
 
     <div>
       <md-dialog :md-active.sync="showDialog">
-        <md-dialog-title v-if="!id">Add Person</md-dialog-title>
-        <md-dialog-title v-if="id">Update Person</md-dialog-title>
+        <md-dialog-title v-if="!id">Add Item</md-dialog-title>
+        <md-dialog-title v-if="id">Update Item</md-dialog-title>
 
         <md-dialog-content>
           <div>
@@ -119,7 +109,7 @@ export default {
   data() {
     return {
       selected: [],
-      persons: [],
+      items: [],
       showDialog: false,
       name: "",
       description: "",
@@ -132,13 +122,13 @@ export default {
       this.description = "";
       this.id = null;
     },
-    showPersonDialog(person) {
+    showItemDialog(item) {
       this.reset();
 
-      if (person !== null) {
-        this.id = person.id;
-        this.name = person.name;
-        this.description = person.description;
+      if (item !== null) {
+        this.id = item.id;
+        this.name = item.name;
+        this.description = item.description;
       }
 
       this.showDialog = true;
@@ -146,12 +136,12 @@ export default {
     add() {
       var self = this;
       http
-        .post("Person/Add", {
+        .post("Item/Add", {
           name: self.name,
           description: self.description
         })
         .then(function() {
-          toastr.success("Person Added");
+          toastr.success("Item Added");
           self.loadData();
           self.showDialog = false;
         });
@@ -159,33 +149,33 @@ export default {
     update() {
       var self = this;
       http
-        .post("Person/Update", {
+        .post("Item/Update", {
           id: self.id,
           name: self.name,
           description: self.description
         })
         .then(function() {
-          toastr.success("Person Updated");
+          toastr.success("Item Updated");
           self.loadData();
           self.showDialog = false;
         });
     },
-    deletePerson(person) {
+    deleteItem(item) {
       var self = this;
       http
-        .post("Person/Delete", {
-          id: person.id
+        .post("Item/Delete", {
+          id: item.id
         })
         .then(function() {
-          toastr.success("Person Deleted");
+          toastr.success("Item Deleted");
           self.loadData();
           self.showDialog = false;
         });
     },
     loadData() {
       var self = this;
-      http.get("Person/GetAll").then(function(response) {
-        self.persons = response.data;
+      http.get("Item/GetAll").then(function(response) {
+        self.items = response.data;
       });
     }
   },

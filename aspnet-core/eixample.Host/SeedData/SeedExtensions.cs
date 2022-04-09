@@ -1,15 +1,15 @@
-﻿using eixample.Entities;
-using eixample.EntityFrameworkCore.EntityFrameworkCore;
-using Microsoft.AspNetCore.Hosting;
+﻿using eixample.Application;
+using eixample.Entities;
+using eixample.EntityFrameworkCore;
+using eixample.SeedData;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
 
-namespace eixample.Application.SeedData
+namespace eixample.Extensions
 {
     public static class SeedExtensions
     {
-        public static IWebHost SeedData(this IWebHost host)
+        public static void SeedData(this WebApplication host)
         {
             using (var scope = host.Services.CreateScope())
             {
@@ -22,8 +22,6 @@ namespace eixample.Application.SeedData
                 new UserCreator(dbContext, tenantService, userManager).Create();
                 new MembershipCreator(dbContext, userManager).Create();
             }
-
-            return host;
         }
     }
 }

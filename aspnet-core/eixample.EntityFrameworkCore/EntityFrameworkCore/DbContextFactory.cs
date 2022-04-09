@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.Configuration;
 
-namespace eixample.EntityFrameworkCore.EntityFrameworkCore
+namespace eixample.EntityFrameworkCore
 {
     public class DbContextFactory : IDesignTimeDbContextFactory<AppDbContext>
     {

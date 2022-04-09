@@ -1,10 +1,7 @@
 ﻿using eixample.Dto;
 using eixample.Entities;
-using eixample.EntityFrameworkCore.EntityFrameworkCore;
+using eixample.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
-using System;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace eixample.Application
 {

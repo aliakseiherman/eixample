@@ -2,6 +2,8 @@
 using Microsoft.EntityFrameworkCore.Migrations;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
+#nullable disable
+
 namespace eixample.EntityFrameworkCore.Migrations
 {
     public partial class Init : Migration
@@ -12,10 +14,10 @@ namespace eixample.EntityFrameworkCore.Migrations
                 name: "asp_net_roles",
                 columns: table => new
                 {
-                    id = table.Column<string>(nullable: false),
-                    name = table.Column<string>(maxLength: 256, nullable: true),
-                    normalized_name = table.Column<string>(maxLength: 256, nullable: true),
-                    concurrency_stamp = table.Column<string>(nullable: true)
+                    id = table.Column<string>(type: "text", nullable: false),
+                    name = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
+                    normalized_name = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
+                    concurrency_stamp = table.Column<string>(type: "text", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -26,23 +28,23 @@ namespace eixample.EntityFrameworkCore.Migrations
                 name: "asp_net_users",
                 columns: table => new
                 {
-                    id = table.Column<string>(nullable: false),
-                    user_name = table.Column<string>(maxLength: 256, nullable: true),
-                    normalized_user_name = table.Column<string>(maxLength: 256, nullable: true),
-                    email = table.Column<string>(maxLength: 256, nullable: true),
-                    normalized_email = table.Column<string>(maxLength: 256, nullable: true),
-                    email_confirmed = table.Column<bool>(nullable: false),
-                    password_hash = table.Column<string>(nullable: true),
-                    security_stamp = table.Column<string>(nullable: true),
-                    concurrency_stamp = table.Column<string>(nullable: true),
-                    phone_number = table.Column<string>(nullable: true),
-                    phone_number_confirmed = table.Column<bool>(nullable: false),
-                    two_factor_enabled = table.Column<bool>(nullable: false),
-                    lockout_end = table.Column<DateTimeOffset>(nullable: true),
-                    lockout_enabled = table.Column<bool>(nullable: false),
-                    access_failed_count = table.Column<int>(nullable: false),
-                    first_name = table.Column<string>(nullable: true),
-                    last_name = table.Column<string>(nullable: true)
+                    id = table.Column<string>(type: "text", nullable: false),
+                    first_name = table.Column<string>(type: "text", nullable: false),
+                    last_name = table.Column<string>(type: "text", nullable: false),
+                    user_name = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
+                    normalized_user_name = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
+                    email = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
+                    normalized_email = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
+                    email_confirmed = table.Column<bool>(type: "boolean", nullable: false),
+                    password_hash = table.Column<string>(type: "text", nullable: true),
+                    security_stamp = table.Column<string>(type: "text", nullable: true),
+                    concurrency_stamp = table.Column<string>(type: "text", nullable: true),
+                    phone_number = table.Column<string>(type: "text", nullable: true),
+                    phone_number_confirmed = table.Column<bool>(type: "boolean", nullable: false),
+                    two_factor_enabled = table.Column<bool>(type: "boolean", nullable: false),
+                    lockout_end = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true),
+                    lockout_enabled = table.Column<bool>(type: "boolean", nullable: false),
+                    access_failed_count = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -53,13 +55,11 @@ namespace eixample.EntityFrameworkCore.Migrations
                 name: "tenants",
                 columns: table => new
                 {
-                    id = table.Column<int>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn),
-                    name = table.Column<string>(nullable: true),
-                    host_name = table.Column<string>(nullable: true),
-                    is_deleted = table.Column<bool>(nullable: false),
-                    creation_time = table.Column<DateTime>(nullable: false),
-                    deletion_time = table.Column<DateTime>(nullable: true)
+                    id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    name = table.Column<string>(type: "text", nullable: false),
+                    host_name = table.Column<string>(type: "text", nullable: false),
+                    creation_time = table.Column<DateTime>(type: "timestamp without time zone", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -70,11 +70,11 @@ namespace eixample.EntityFrameworkCore.Migrations
                 name: "asp_net_role_claims",
                 columns: table => new
                 {
-                    id = table.Column<int>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn),
-                    role_id = table.Column<string>(nullable: false),
-                    claim_type = table.Column<string>(nullable: true),
-                    claim_value = table.Column<string>(nullable: true)
+                    id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    role_id = table.Column<string>(type: "text", nullable: false),
+                    claim_type = table.Column<string>(type: "text", nullable: true),
+                    claim_value = table.Column<string>(type: "text", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -91,11 +91,11 @@ namespace eixample.EntityFrameworkCore.Migrations
                 name: "asp_net_user_claims",
                 columns: table => new
                 {
-                    id = table.Column<int>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn),
-                    user_id = table.Column<string>(nullable: false),
-                    claim_type = table.Column<string>(nullable: true),
-                    claim_value = table.Column<string>(nullable: true)
+                    id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    user_id = table.Column<string>(type: "text", nullable: false),
+                    claim_type = table.Column<string>(type: "text", nullable: true),
+                    claim_value = table.Column<string>(type: "text", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -112,10 +112,10 @@ namespace eixample.EntityFrameworkCore.Migrations
                 name: "asp_net_user_logins",
                 columns: table => new
                 {
-                    login_provider = table.Column<string>(nullable: false),
-                    provider_key = table.Column<string>(nullable: false),
-                    provider_display_name = table.Column<string>(nullable: true),
-                    user_id = table.Column<string>(nullable: false)
+                    login_provider = table.Column<string>(type: "text", nullable: false),
+                    provider_key = table.Column<string>(type: "text", nullable: false),
+                    provider_display_name = table.Column<string>(type: "text", nullable: true),
+                    user_id = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -132,8 +132,8 @@ namespace eixample.EntityFrameworkCore.Migrations
                 name: "asp_net_user_roles",
                 columns: table => new
                 {
-                    user_id = table.Column<string>(nullable: false),
-                    role_id = table.Column<string>(nullable: false)
+                    user_id = table.Column<string>(type: "text", nullable: false),
+                    role_id = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -156,10 +156,10 @@ namespace eixample.EntityFrameworkCore.Migrations
                 name: "asp_net_user_tokens",
                 columns: table => new
                 {
-                    user_id = table.Column<string>(nullable: false),
-                    login_provider = table.Column<string>(nullable: false),
-                    name = table.Column<string>(nullable: false),
-                    value = table.Column<string>(nullable: true)
+                    user_id = table.Column<string>(type: "text", nullable: false),
+                    login_provider = table.Column<string>(type: "text", nullable: false),
+                    name = table.Column<string>(type: "text", nullable: false),
+                    value = table.Column<string>(type: "text", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -173,70 +173,59 @@ namespace eixample.EntityFrameworkCore.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "persons",
+                name: "items",
                 columns: table => new
                 {
-                    id = table.Column<long>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn),
-                    creation_time = table.Column<DateTime>(nullable: false),
-                    creator_id = table.Column<string>(nullable: true),
-                    modification_time = table.Column<DateTime>(nullable: true),
-                    modifier_id = table.Column<string>(nullable: true),
-                    deletion_time = table.Column<DateTime>(nullable: true),
-                    deleter_id = table.Column<string>(nullable: true),
-                    is_deleted = table.Column<bool>(nullable: false),
-                    tenant_id = table.Column<int>(nullable: false),
-                    name = table.Column<string>(nullable: true),
-                    description = table.Column<string>(nullable: true)
+                    id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    name = table.Column<string>(type: "text", nullable: false),
+                    description = table.Column<string>(type: "text", nullable: true),
+                    creation_time = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
+                    creator_id = table.Column<string>(type: "text", nullable: false),
+                    modification_time = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
+                    modifier_id = table.Column<string>(type: "text", nullable: true),
+                    tenant_id = table.Column<int>(type: "integer", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("pk_persons", x => x.id);
+                    table.PrimaryKey("pk_items", x => x.id);
                     table.ForeignKey(
-                        name: "fk_persons_asp_net_users_creator_id",
+                        name: "fk_items_asp_net_users_creator_id",
                         column: x => x.creator_id,
                         principalTable: "asp_net_users",
                         principalColumn: "id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "fk_persons_asp_net_users_deleter_id",
-                        column: x => x.deleter_id,
-                        principalTable: "asp_net_users",
-                        principalColumn: "id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "fk_persons_asp_net_users_modifier_id",
+                        name: "fk_items_asp_net_users_modifier_id",
                         column: x => x.modifier_id,
                         principalTable: "asp_net_users",
-                        principalColumn: "id",
-                        onDelete: ReferentialAction.Restrict);
+                        principalColumn: "id");
                 });
 
             migrationBuilder.CreateTable(
                 name: "memberships",
                 columns: table => new
                 {
-                    id = table.Column<long>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn),
-                    user_id = table.Column<string>(nullable: true),
-                    tenant_id = table.Column<int>(nullable: false),
-                    creation_time = table.Column<DateTime>(nullable: false)
+                    id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    user_id = table.Column<string>(type: "text", nullable: false),
+                    tenant_id = table.Column<int>(type: "integer", nullable: true),
+                    creation_time = table.Column<DateTime>(type: "timestamp without time zone", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("pk_memberships", x => x.id);
                     table.ForeignKey(
-                        name: "fk_memberships_tenants_tenant_id",
-                        column: x => x.tenant_id,
-                        principalTable: "tenants",
-                        principalColumn: "id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
                         name: "fk_memberships_asp_net_users_user_id",
                         column: x => x.user_id,
                         principalTable: "asp_net_users",
                         principalColumn: "id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "fk_memberships_tenants_tenant_id",
+                        column: x => x.tenant_id,
+                        principalTable: "tenants",
+                        principalColumn: "id");
                 });
 
             migrationBuilder.CreateIndex(
@@ -277,6 +266,16 @@ namespace eixample.EntityFrameworkCore.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
+                name: "ix_items_creator_id",
+                table: "items",
+                column: "creator_id");
+
+            migrationBuilder.CreateIndex(
+                name: "ix_items_modifier_id",
+                table: "items",
+                column: "modifier_id");
+
+            migrationBuilder.CreateIndex(
                 name: "ix_memberships_tenant_id",
                 table: "memberships",
                 column: "tenant_id");
@@ -285,21 +284,6 @@ namespace eixample.EntityFrameworkCore.Migrations
                 name: "ix_memberships_user_id",
                 table: "memberships",
                 column: "user_id");
-
-            migrationBuilder.CreateIndex(
-                name: "ix_persons_creator_id",
-                table: "persons",
-                column: "creator_id");
-
-            migrationBuilder.CreateIndex(
-                name: "ix_persons_deleter_id",
-                table: "persons",
-                column: "deleter_id");
-
-            migrationBuilder.CreateIndex(
-                name: "ix_persons_modifier_id",
-                table: "persons",
-                column: "modifier_id");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -320,19 +304,19 @@ namespace eixample.EntityFrameworkCore.Migrations
                 name: "asp_net_user_tokens");
 
             migrationBuilder.DropTable(
-                name: "memberships");
+                name: "items");
 
             migrationBuilder.DropTable(
-                name: "persons");
+                name: "memberships");
 
             migrationBuilder.DropTable(
                 name: "asp_net_roles");
 
             migrationBuilder.DropTable(
-                name: "tenants");
+                name: "asp_net_users");
 
             migrationBuilder.DropTable(
-                name: "asp_net_users");
+                name: "tenants");
         }
     }
 }

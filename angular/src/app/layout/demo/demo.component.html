@@ -7,19 +7,15 @@
             <div class="alert alert-info" style="font-size:12px">
                 <p>This page demonstrates audit functionality.</p>
                 <p style="margin-bottom:0">Using pgAdmin you can track changes made by the app. We are
-                    dealing with <b>Persons</b> table.</p>
+                    dealing with <b>Items</b> table.</p>
                 <br>
                 <p style="margin-bottom:0">Create record and have a look at <b>CreationTime</b>, <b>CreatorID</b> and
                     <b>TenantID</b>.</p>
                 <p style="margin-bottom:0">Modify record and have a look at <b>ModificationTime</b> and <b>ModifierID</b>.</p>
-                <p style="margin-bottom:0">Delete record and have a look at <b>DeletionTime</b> and <b>DeleterID</b>.</p>
                 <br>
                 <p style="margin-bottom:0">Try switching between tenants ('subdomain1' and 'subdomain2') and see that
                     the
                     app only pulls records which belong to current tenant.</p>
-                <br>
-                <p style="margin-bottom:0">Note that we've applied Dynamic Filter to avoid pulling soft-deleted
-                    records.</p>
             </div>
         </div>
 
@@ -27,13 +23,13 @@
 
             <div class="card mb-3">
                 <div class="card-header">
-                    People
+                    Items
                     <button class="btn-xs pull-right" (click)="open(content)">
                         <i class="fa fa-plus-square"></i>
                     </button>
                     <ng-template #content let-c="close" let-d="dismiss">
                         <div class="modal-header">
-                            <h4 class="modal-title">{{input.id > 0 ? 'Update Person' : 'Add Person'}}</h4>
+                            <h4 class="modal-title">{{input.id > 0 ? 'Update Items' : 'Add Items'}}</h4>
                             <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
                                 <span aria-hidden="true">&times;</span>
                             </button>
@@ -69,15 +65,15 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let person of persons">
-                                <th scope="row">{{person.id}}</th>
-                                <td>{{person.name}}</td>
-                                <td>{{person.description}}</td>
+                            <tr *ngFor="let item of items">
+                                <th scope="row">{{item.id}}</th>
+                                <td>{{item.name}}</td>
+                                <td>{{item.description}}</td>
                                 <td>
-                                    <button class="btn btn-secondary" (click)="edit(person, content)">Edit</button>
+                                    <button class="btn btn-secondary" (click)="edit(item, content)">Edit</button>
                                 </td>
                                 <td>
-                                    <button style="margin-left: 10px" class="btn btn-secondary" (click)="delete(person)">Delete</button>
+                                    <button style="margin-left: 10px" class="btn btn-secondary" (click)="delete(item)">Delete</button>
                                 </td>
                             </tr>
                         </tbody>

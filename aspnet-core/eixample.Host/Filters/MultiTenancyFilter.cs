@@ -1,11 +1,9 @@
 ﻿using eixample.Application;
 using eixample.Consts;
-using eixample.EntityFrameworkCore.EntityFrameworkCore;
+using eixample.EntityFrameworkCore;
 using eixample.Extensions;
 using Microsoft.AspNetCore.Mvc.Filters;
-using System.Linq;
 using System.Security.Claims;
-using System.Threading.Tasks;
 
 namespace eixample.Host.Filters
 {

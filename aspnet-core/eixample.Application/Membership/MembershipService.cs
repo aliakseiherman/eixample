@@ -1,6 +1,5 @@
 ﻿using eixample.Entities;
-using eixample.EntityFrameworkCore.EntityFrameworkCore;
-using System.Linq;
+using eixample.EntityFrameworkCore;
 
 namespace eixample.Application
 {
@@ -35,11 +34,11 @@ namespace eixample.Application
 
         public void CreateMembership(ApplicationUser user)
         {
-            bool exists = _dbContext.Memberships.Any(x => x.TenantId == _session.TenantId.Value && x.UserId == user.Id);
+            bool exists = _dbContext.Memberships.Any(x => x.TenantId == _session.TenantId && x.UserId == user.Id);
 
             if (!exists)
             {
-                _dbContext.Memberships.Add(new Membership() { TenantId = _session.TenantId.Value, UserId = user.Id });
+                _dbContext.Memberships.Add(new Membership() { TenantId = _session.TenantId, UserId = user.Id });
                 _dbContext.SaveChanges();
             }
         }

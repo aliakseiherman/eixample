@@ -1,10 +1,9 @@
 ﻿using eixample.Consts;
 using eixample.Entities;
-using eixample.EntityFrameworkCore.EntityFrameworkCore;
+using eixample.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
-using System.Linq;
 
-namespace eixample.Application.SeedData
+namespace eixample.SeedData
 {
     public class MembershipCreator
     {
@@ -42,14 +41,14 @@ namespace eixample.Application.SeedData
                 _context.SaveChanges();
             }
 
-            // restricting John Roe from logging in to tenants other than 'galeriasenda'
-            var johnRoe = _userManager.FindByNameAsync(SetupConsts.Users.JohnRoe.UserName).ConfigureAwait(false).GetAwaiter().GetResult();
 
-            var firstTenant = _context.Tenants.Single(x => x.HostName == SetupConsts.Tenants.Subdomain1.HostName);
+            var johnDoe = _userManager.FindByNameAsync(SetupConsts.Users.JohnDoe.UserName).ConfigureAwait(false).GetAwaiter().GetResult();
 
-            if (!_context.Memberships.Any(x => x.TenantId == firstTenant.Id && x.UserId == johnRoe.Id))
+            var firstTenant = _context.Tenants.Single(x => x.HostName.Equals(SetupConsts.Tenants.Subdomain1.HostName));
+
+            if (!_context.Memberships.Any(x => x.TenantId == firstTenant.Id && x.UserId == johnDoe.Id))
             {
-                _context.Memberships.Add(new Membership() { TenantId = firstTenant.Id, UserId = johnRoe.Id });
+                _context.Memberships.Add(new Membership() { TenantId = firstTenant.Id, UserId = johnDoe.Id });
             }
 
             _context.SaveChanges();

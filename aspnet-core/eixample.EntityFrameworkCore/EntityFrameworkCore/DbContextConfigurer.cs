@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.Data.Common;
 
-namespace eixample.EntityFrameworkCore.EntityFrameworkCore
+namespace eixample.EntityFrameworkCore
 {
     public class DbContextConfigurer
     {

@@ -9,37 +9,26 @@ namespace eixample.Extensions
         {
             foreach (var entity in modelBuilder.Model.GetEntityTypes())
             {
-                entity.Relational().TableName = entity.Relational().TableName.ToSnakeCase();
+                entity.SetTableName(entity.GetTableName()?.ToSnakeCase().ToLower());
 
                 foreach (var property in entity.GetProperties())
                 {
-                    property.Relational().ColumnName = property.Name.ToSnakeCase();
+                    property.SetColumnName(property.Name?.ToSnakeCase().ToLower());
                 }
 
                 foreach (var key in entity.GetKeys())
                 {
-                    key.Relational().Name = key.Relational().Name.ToSnakeCase();
+                    key.SetName(key.GetName()?.ToSnakeCase().ToLower());
                 }
 
                 foreach (var key in entity.GetForeignKeys())
                 {
-                    key.Relational().Name = key.Relational().Name.ToSnakeCase();
+                    key.SetConstraintName(key.GetConstraintName()?.ToSnakeCase().ToLower());
                 }
 
                 foreach (var index in entity.GetIndexes())
                 {
-                    index.Relational().Name = index.Relational().Name.ToSnakeCase();
-                }
-            }
-        }
-
-        public static void EnableSoftDelete(this ModelBuilder modelBuilder)
-        {
-            foreach (var type in modelBuilder.Model.GetEntityTypes())
-            {
-                if (typeof(ISoftDelete).IsAssignableFrom(type.ClrType) && (type.BaseType == null || !typeof(ISoftDelete).IsAssignableFrom(type.BaseType.ClrType)))
-                {
-                    modelBuilder.SetSoftDeleteFilter(type.ClrType);
+                    index?.SetDatabaseName(index.GetDatabaseName()?.ToSnakeCase().ToLower());
                 }
             }
         }

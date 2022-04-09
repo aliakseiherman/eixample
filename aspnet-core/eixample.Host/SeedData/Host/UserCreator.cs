@@ -1,10 +1,10 @@
-﻿using eixample.Consts;
+﻿using eixample.Application;
+using eixample.Consts;
 using eixample.Entities;
-using eixample.EntityFrameworkCore.EntityFrameworkCore;
+using eixample.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
-using System.Linq;
 
-namespace eixample.Application.SeedData
+namespace eixample.SeedData
 {
     public class UserCreator
     {
@@ -47,16 +47,16 @@ namespace eixample.Application.SeedData
                 _userManager.CreateAsync(hostAdminUser).ConfigureAwait(false).GetAwaiter().GetResult();
             }
 
-            ApplicationUser secondaryUser = _context.Users.FirstOrDefault(x => x.UserName.Equals(SetupConsts.Users.JohnRoe.UserName));
+            ApplicationUser secondaryUser = _context.Users.FirstOrDefault(x => x.UserName.Equals(SetupConsts.Users.JohnDoe.UserName));
 
             if (secondaryUser == null)
             {
                 secondaryUser = new ApplicationUser()
                 {
-                    FirstName = SetupConsts.Users.JohnRoe.FirstName,
-                    LastName = SetupConsts.Users.JohnRoe.LastName,
-                    UserName = SetupConsts.Users.JohnRoe.UserName,
-                    Email = SetupConsts.Users.JohnRoe.Email,
+                    FirstName = SetupConsts.Users.JohnDoe.FirstName,
+                    LastName = SetupConsts.Users.JohnDoe.LastName,
+                    UserName = SetupConsts.Users.JohnDoe.UserName,
+                    Email = SetupConsts.Users.JohnDoe.Email,
                     EmailConfirmed = true,
                     PasswordHash = new PasswordHasher<ApplicationUser>().HashPassword(secondaryUser, SetupConsts.Users.Passwords.Default)
                 };

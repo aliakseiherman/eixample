@@ -1,6 +1,4 @@
-﻿using System.IO;
-
-namespace eixample.Extensions
+﻿namespace eixample.Extensions
 {
     public static class PathExtensions
     {

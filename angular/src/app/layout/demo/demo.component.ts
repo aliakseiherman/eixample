@@ -3,7 +3,7 @@ import { routerTransition } from '../../router.animations';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ComponentBase } from '@shared/component-base';
 import { NgbModal, ModalDismissReasons, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { PersonServiceProxy, PersonDto } from '@shared/service-proxies/service-proxies';
+import { ItemServiceProxy, ItemDto } from '@shared/service-proxies/service-proxies';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
@@ -15,14 +15,14 @@ export class DemoComponent extends ComponentBase implements OnInit {
 
   closeResult: string;
 
-  private input: PersonDto;
+  private input: ItemDto;
 
-  private persons: PersonDto[];
+  private items: ItemDto[];
 
   private modalReference: NgbModalRef;
 
   constructor(
-    private personService: PersonServiceProxy,
+    private itemService: ItemServiceProxy,
     injector: Injector,
     sanitizer: DomSanitizer,
     private modalService: NgbModal,
@@ -32,20 +32,20 @@ export class DemoComponent extends ComponentBase implements OnInit {
   }
 
   ngOnInit() {
-    this.loadPersons();
+    this.loadItems();
   }
 
-  loadPersons(): void {
-    this.personService.getAll()
+  loadItems(): void {
+    this.itemService.getAll()
       .finally(() => { })
-      .subscribe((result: PersonDto[]) => {
-        this.persons = result;
+      .subscribe((result: ItemDto[]) => {
+        this.items = result;
       });
   }
 
   open(content) {
 
-    this.input = new PersonDto();
+    this.input = new ItemDto();
 
     this.modalReference = this.modalService.open(content);
 
@@ -56,8 +56,8 @@ export class DemoComponent extends ComponentBase implements OnInit {
     });
   }
 
-  edit(person: PersonDto, content: any) {
-    this.input = person;
+  edit(item: ItemDto, content: any) {
+    this.input = item;
     this.modalReference = this.modalService.open(content);
 
     this.modalReference.result.then((result) => {
@@ -67,13 +67,13 @@ export class DemoComponent extends ComponentBase implements OnInit {
     });
   }
 
-  delete(person: PersonDto) {
+  delete(item: ItemDto) {
 
-    this.personService.delete(person)
+    this.itemService.delete(item)
       .finally(() => { })
       .subscribe(() => {
-        this.toastr.info(`Person '${person.name}' has been deleted.`, 'Person Deleted');
-        this.loadPersons();
+        this.toastr.info(`Item '${item.name}' has been deleted.`, 'Item Deleted');
+        this.loadItems();
       });
   }
 
@@ -81,22 +81,22 @@ export class DemoComponent extends ComponentBase implements OnInit {
 
     if (this.input.id > 0) {
 
-      this.personService.update(this.input)
+      this.itemService.update(this.input)
         .finally(() => { })
         .subscribe(() => {
-          this.toastr.success(`Person '${this.input.name}' has been updated.`, 'Person Updated');
+          this.toastr.success(`Item '${this.input.name}' has been updated.`, 'Item Updated');
           this.modalReference.close();
-          this.loadPersons();
+          this.loadItems();
         });
 
     } else {
 
-      this.personService.add(this.input)
+      this.itemService.add(this.input)
         .finally(() => { })
         .subscribe(() => {
-          this.toastr.success(`Person '${this.input.name}' has been created.`, 'Person Created');
+          this.toastr.success(`Item '${this.input.name}' has been created.`, 'Item Created');
           this.modalReference.close();
-          this.loadPersons();
+          this.loadItems();
         });
 
     }

@@ -3,9 +3,6 @@ using eixample.Application;
 using eixample.Dto;
 using eixample.Host.Models.Account;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
-using System;
-using System.Threading.Tasks;
 
 namespace eixample.Host.Controllers
 {

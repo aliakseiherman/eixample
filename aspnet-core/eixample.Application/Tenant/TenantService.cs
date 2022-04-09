@@ -1,6 +1,5 @@
 ﻿using eixample.Entities;
-using eixample.EntityFrameworkCore.EntityFrameworkCore;
-using System.Linq;
+using eixample.EntityFrameworkCore;
 
 namespace eixample.Application
 {

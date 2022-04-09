@@ -2,9 +2,6 @@
 using eixample.Host.Models.Auth;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
-using System;
-using System.Threading.Tasks;
 
 namespace eixample.Host.Controllers
 {
@@ -39,7 +36,9 @@ namespace eixample.Host.Controllers
                 throw new Exception("Unauthorised");
             }
 
-            return new AuthenticateOutput() { Token = GetAuthToken(user, expires) };
+            string token = GetAuthToken(user, expires);
+
+            return new AuthenticateOutput() { Token = token };
         }
     }
 }

@@ -40,52 +40,52 @@ const useStyles = makeStyles({
   },
 });
 
-function EditPersonDialog(props) {
+function EditItemDialog(props) {
   const classes = useStyles();
-  const { onClose, person, ...other } = props;
+  const { onClose, item: item, ...other } = props;
 
-  const [personEdited, setPersonEdited] = React.useState({ ...props.person });
+  const [itemEdited, setItemEdited] = React.useState({ ...props.item });
 
   React.useEffect(() => {
-    setPersonEdited(props.person);
-  }, [props.person])
+    setItemEdited(props.item);
+  }, [props.item])
 
   function handleClose() {
     onClose();
   }
 
   function updateOrCreate() {
-    if (person.id > 0) {
+    if (item.id > 0) {
       http
-        .post("Person/Update", {
-          id: personEdited.id,
-          name: personEdited.name,
-          description: personEdited.description
+        .post("Item/Update", {
+          id: itemEdited.id,
+          name: itemEdited.name,
+          description: itemEdited.description
         })
         .then(function (response) {
-          toastr.success('Person Updated');
+          toastr.success('Item Updated');
           handleClose();
         });
     } else {
       http
-        .post("Person/Add", {
-          name: personEdited.name,
-          description: personEdited.description
+        .post("Item/Add", {
+          name: itemEdited.name,
+          description: itemEdited.description
         })
         .then(function (response) {
-          toastr.success('Person Added');
+          toastr.success('Item Added');
           handleClose();
         });
     }
   }
 
   const handleChange = name => event => {
-    setPersonEdited({ ...personEdited, [name]: event.target.value });
+    setItemEdited({ ...itemEdited, [name]: event.target.value });
   };
 
   return (
     <Dialog onClose={handleClose} aria-labelledby="simple-dialog-title" {...other}>
-      <DialogTitle id="simple-dialog-title">{person.id > 0 ? 'Update' : 'Add'} Person</DialogTitle>
+      <DialogTitle id="simple-dialog-title">{item.id > 0 ? 'Update' : 'Add'} Item</DialogTitle>
       <DialogContent>
         <form className={classes.container} noValidate autoComplete="off">
 
@@ -94,7 +94,7 @@ function EditPersonDialog(props) {
               id="name"
               label="Name"
               onChange={handleChange('name')}
-              value={personEdited.name}
+              value={itemEdited.name}
               className={classes.textField}
               margin="normal"
               variant="outlined"
@@ -106,7 +106,7 @@ function EditPersonDialog(props) {
               label="Description"
               type="textarea"
               onChange={handleChange('description')}
-              value={personEdited.description}
+              value={itemEdited.description}
               className={classes.textField}
               margin="normal"
               variant="outlined"
@@ -115,7 +115,7 @@ function EditPersonDialog(props) {
           </div>
 
           <div>
-            <Button variant="outlined" color="primary" className={classes.button} onClick={updateOrCreate}>{person.id > 0 ? 'Update' : 'Add'}</Button>
+            <Button variant="outlined" color="primary" className={classes.button} onClick={updateOrCreate}>{item.id > 0 ? 'Update' : 'Add'}</Button>
             <Button variant="outlined" color="default" className={classes.button} onClick={handleClose}>Close</Button>
           </div>
         </form>
@@ -124,10 +124,10 @@ function EditPersonDialog(props) {
   );
 }
 
-EditPersonDialog.propTypes = {
+EditItemDialog.propTypes = {
   onClose: PropTypes.func,
   open: PropTypes.bool,
-  personSelected: PropTypes.any
+  itemSelected: PropTypes.any
 };
 
 const styles = {
@@ -162,49 +162,49 @@ const styles = {
 
 function Demo(props) {
   const [open, setOpen] = React.useState(false);
-  const [person, setPerson] = React.useState({ id: 0, name: '', description: '' });
+  const [item, setItem] = React.useState({ id: 0, name: '', description: '' });
   const { classes } = props;
 
-  function addPerson() {
+  function addItem() {
 
-    setPerson({ id: 0, name: '', description: '' });
+    setItem({ id: 0, name: '', description: '' });
     setOpen(true);
   }
 
-  function editPerson(person) {
-    setPerson(person);
+  function editItem(item) {
+    setItem(item);
     setOpen(true);
   }
 
-  function deletePerson(person) {
+  function deleteItem(item) {
     http
-      .post("Person/Delete", {
-        id: person.id
+      .post("Item/Delete", {
+        id: item.id
       })
       .then(function (response) {
-        toastr.success('Person Deleted');
-        loadPeople();
+        toastr.success('Item Deleted');
+        loadItems();
       });
   }
 
   const handleClose = value => {
     setOpen(false);
-    loadPeople();
+    loadItems();
   };
 
-  function loadPeople() {
+  function loadItems() {
     http
-      .get("Person/GetAll")
+      .get("Item/GetAll")
       .then(function (response) {
-        setPeople(response.data);
+        setItems(response.data);
       });
   }
 
-  let [people, setPeople] = useState([]);
+  let [items, setItems] = useState([]);
 
   useEffect(() => {
 
-    loadPeople();
+    loadItems();
 
   }, []);
 
@@ -214,52 +214,43 @@ function Demo(props) {
         <GridItem xs={12} sm={12} md={12}>
           <Card>
             <CardHeader color="info">
-              <h4 className={classes.cardTitleWhite}>People</h4>
               <p>This page demonstrates audit functionality.</p>
               <p className={classes.cardCategoryWhite}>Using pgAdmin you can track changes made by the app. We are
-                    dealing with <b>Persons</b> table.</p>
+                    dealing with <b>Items</b> table.</p>
               <b />
               <p className={classes.cardCategoryWhite}>Create record and have a look at <b>CreationTime</b>, <b>CreatorID</b> and <b>TenantID</b>.</p>
               <p className={classes.cardCategoryWhite}>Modify record and have a look at <b>ModificationTime</b> and <b>ModifierID</b>.</p>
-              <p className={classes.cardCategoryWhite}>Delete record and have a look at <b>DeletionTime</b> and <b>DeleterID</b>.</p>
               <br />
               <p className={classes.cardCategoryWhite}>Try switching between tenants ('subdomain1' and 'subdomain2') and see that
                   the
                     app only pulls records which belong to current tenant.</p>
-              <br />
-              <p className={classes.cardCategoryWhite}>Note that we've applied Dynamic Filter to avoid pulling soft-deleted
-                    records.</p>
             </CardHeader>
             <CardBody>
               <Table className={classes.table}>
                 <TableHead>
                   <TableRow>
-                    <TableCell>Id</TableCell>
                     <TableCell align="left">Name</TableCell>
                     <TableCell align="left">Description</TableCell>
                     <TableCell align="left"></TableCell>
                     <TableCell align="right">
-                      <Fab color="primary" aria-label="Add" className={classes.fab} onClick={addPerson}>
+                      <Fab color="primary" aria-label="Add" className={classes.fab} onClick={addItem}>
                         <AddIcon />
                       </Fab>
                     </TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {people.map(person => (
-                    <TableRow key={person.id}>
-                      <TableCell component="th" scope="person">
-                        {person.id}
-                      </TableCell>
-                      <TableCell align="left">{person.name}</TableCell>
-                      <TableCell align="left">{person.description}</TableCell>
+                  {items.map(item => (
+                    <TableRow key={item.id}>
+                      <TableCell align="left">{item.name}</TableCell>
+                      <TableCell align="left">{item.description}</TableCell>
                       <TableCell align="left">
-                        <Fab color="default" aria-label="Edit" className={classes.fab} onClick={() => editPerson(person)}>
+                        <Fab color="default" aria-label="Edit" className={classes.fab} onClick={() => editItem(item)}>
                           <Icon>edit_icon</Icon>
                         </Fab>
                       </TableCell>
                       <TableCell align="right">
-                        <Fab aria-label="Delete" className={classes.fab} onClick={() => deletePerson(person)}>
+                        <Fab aria-label="Delete" className={classes.fab} onClick={() => deleteItem(item)}>
                           <DeleteIcon />
                         </Fab>
                       </TableCell>
@@ -271,7 +262,16 @@ function Demo(props) {
           </Card>
         </GridItem>
       </GridContainer>
-      <EditPersonDialog person={person} open={open} onClose={handleClose} />
+
+      {items.length > 0 && (
+        <h6>Current database state:</h6>
+      )}
+
+      {items.map(item => (
+        <pre>{JSON.stringify(item, null, 2)}</pre>
+      ))}
+
+      <EditItemDialog item={item} open={open} onClose={handleClose} />
     </div>
   );
 }

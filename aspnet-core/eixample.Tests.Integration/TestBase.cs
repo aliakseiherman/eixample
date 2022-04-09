@@ -1,7 +1,7 @@
 ﻿using eixample.Application;
-using eixample.Application.SeedData;
 using eixample.Entities;
-using eixample.EntityFrameworkCore.EntityFrameworkCore;
+using eixample.EntityFrameworkCore;
+using eixample.SeedData;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
