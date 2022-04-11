@@ -7,3 +7,5 @@ knockout/* linguist-vendored
 *.scss linguist-detectable=false
 *.ts linguist-detectable=false
 *.js linguist-detectable=false
+*.vue linguist-detectable=false
+*.css linguist-detectable=false
