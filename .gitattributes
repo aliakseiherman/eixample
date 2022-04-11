@@ -1,11 +1,2 @@
-angular/* linguist-vendored
-vue/* linguist-vendored
-react/* linguist-vendored
-knockout/* linguist-vendored
-
-*.html linguist-detectable=false
-*.scss linguist-detectable=false
-*.ts linguist-detectable=false
-*.js linguist-detectable=false
-*.vue linguist-detectable=false
-*.css linguist-detectable=false
+*.* linguist-detectable=false
+*.cs linguist-detectable=true
